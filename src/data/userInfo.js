@@ -15,7 +15,7 @@ const userInfo = {
         {
             icon: SiGithub,
             name: 'GitHub',
-            link: 'https://github.com/shureiki'
+            link: 'https://github.com/shuurei'
         }
     ],
     experiences: [

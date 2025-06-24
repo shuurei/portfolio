@@ -8,10 +8,10 @@ const userProjects = [
         showOnCV: true
     },
     {
-        name: 'Distem',
+        name: 'Echo',
         description: "Bot Discord. Plus d'information à l'avenir",
-        language: 'JavaScript',
-        topics: [ 'javascript', 'js', 'wip' ]
+        language: 'TypeScript',
+        topics: [ 'typescript', 'javascript', 'ts', 'js', 'wip' ]
     },
     {
         name: 'Baby Mobs',
