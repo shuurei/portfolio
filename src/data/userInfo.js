@@ -1,7 +1,7 @@
 import { SiGithub, SiLinkedin } from 'react-icons/si';
 
 const userInfo = {
-    pseudo: 'shureiki',
+    pseudo: 'shuurei',
     localisation: 'Nantes 44',
     old: Math.floor((new Date() - new Date('10-27-2005')) / (1000 * 60 * 60 * 24 * 365)),
     email: 'l.loquais44@gmail.com',
