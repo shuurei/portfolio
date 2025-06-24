@@ -28,9 +28,9 @@ import useProjects from '@/hooks/useProjects';
 const UserAvatar = () => {
 	return (
 		<Box className='p-2'>
-			<img src='/avatar.jpg' alt='Avatar' />
+			<img src={userInfo.avatarPath} alt='Avatar' />
 		</Box>
-	)
+	);
 }
 
 const links = [
