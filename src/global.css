@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Iceland&display=swap');
+
+@import 'tailwindcss';
+@config '../tailwind.config.js';
+
+@theme {
+    /* COLORS */
+    /* Cyberpunk */
+    /* --color-accent: #ff5d5d; */
+
+    /* Fallout */
+    /* --color-accent: #00ee00; */
+
+    --color-accent: var(--accent-season, #FFF);
+
+    --bevel-size: 0.5rem;
+
+    /* FONTS */
+    --font-iceland: 'Iceland';
+    --font-bigShouldersDisplay: 'Big Shoulders Display';
+}
+
+@layer base {
+    :root {
+        --gradient-color: color-mix(in oklab, var(--color-accent) 30%, transparent);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    #__next {
+        height: 100%;
+    }
+
+    ::-webkit-scrollbar {
+        width: 20px;
+    }
+
+    ::-webkit-scrollbar-track {
+        border-right: 10px #303030e7 solid;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-right: 10px var(--color-accent) solid;
+    }
+
+    html {
+        color: white;
+        font-family: 'Iceland', sans-serif;
+    }
+
+    body {
+        background: linear-gradient(225deg, var(--gradient-color) 0%, transparent 15%, transparent 85%, var(--gradient-color) 100%);
+    }
+
+    h1, h2 {
+        font-family: 'Big Shoulders Display', sans-serif;
+    }
+}
+
+@layer utilities {
+    .bevel-tl {
+        clip-path: polygon(
+            var(--bevel-size) 0,
+            100% 0, 100% 100%,
+            0 100%,
+            0 var(--bevel-size)
+        );
+    }
+
+    .bevel-bl {
+        clip-path: polygon(
+            100% 0,
+            100% 100%,
+            var(--bevel-size) 100%,
+            0 calc(100% - var(--bevel-size)),
+            0 0
+        );
+    }
+
+    .bevel-tr {
+        clip-path: polygon(
+            calc(100% - var(--bevel-size)) 0%,
+            100% var(--bevel-size),
+            100% 100%,
+            0 100%,
+            0 0
+        );
+    }
+
+    .bevel-br {
+        clip-path: polygon(
+            100% 0,
+            100% calc(100% - var(--bevel-size)),
+            calc(100% - var(--bevel-size)) 100%,
+            0 100%,
+            0 0
+        );
+    }
+
+    .bevel {
+        clip-path: polygon(
+            var(--bevel-size) 0,
+            calc(100% - var(--bevel-size)) 0,
+            100% var(--bevel-size),
+            100% calc(100% - var(--bevel-size)),
+            calc(100% - var(--bevel-size)) 100%,
+            var(--bevel-size) 100%,
+            0 calc(100% - var(--bevel-size)),
+            0 var(--bevel-size)
+        );
+    }
+
+    .corner {
+        @apply absolute h-2/8 w-2/8 max-w-8 max-h-8 border-accent; 
+    }
+
+    .drop-shadow-crushed {
+        filter: drop-shadow(0 0 3px color-mix(in oklab, var(--tw-shadow-color) 100%, white));
+    }
+}
