@@ -15,14 +15,16 @@ import { useProjects } from '@/contexts/ProjectsContext'
 import useScreen from '@/hooks/useScreen'
 import useSeason from '@/utils/season'
 
-import userInfo from '@/data/userInfo'
 import { pdf } from '@react-pdf/renderer'
 import { useUser } from '@/contexts/UserContext'
 import { useMemo } from 'react'
 
 import userSkills from '@/data/userSkills'
+import useUserInfo from '@/hooks/useUserInfo'
 
 const UserAvatar = () => {
+	const userInfo = useUserInfo();
+
 	return (
 		<Box className='p-2'>
 			<img src={userInfo.avatarPath} alt='Avatar' />
@@ -50,6 +52,8 @@ const links = [
 ];
 
 export default function Layout({ children }) {
+	const userInfo = useUserInfo();
+
 	const { pathname, query } = useRouter();
 	const { screenWidth } = useScreen();
 
