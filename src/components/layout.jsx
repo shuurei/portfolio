@@ -21,6 +21,7 @@ import { useUser } from '@/contexts/UserContext'
 import { useMemo } from 'react'
 
 import userSkills from '@/data/userSkills'
+import { useSearchParams } from 'next/navigation'
 
 const UserAvatar = () => {
 	return (
@@ -52,6 +53,9 @@ const links = [
 export default function Layout({ children }) {
 	const { pathname, query } = useRouter();
 	const { screenWidth } = useScreen();
+
+	const searchParams = useSearchParams();
+	const params = searchParams.toString();
 
 	const { isOpen, toggleOpenState } = useMenu();
 
@@ -201,7 +205,7 @@ export default function Layout({ children }) {
 											<Link
 												onClick={() => toggleOpenState()}
 												className={`border-l-2 border-white/40 bg-white/8 px-2 py-1 [&.active]:border-accent [&.active]:bg-accent/40 ${pathname === href ? 'active' : ''}`}
-												href={href}
+												href={params ? `${href}?${params}` : href}
 												key={idx}
 											>
 												<span className='text-lg tracking-wider font-bigShouldersDisplay uppercase'>{title}</span>
@@ -217,7 +221,7 @@ export default function Layout({ children }) {
 							{links.map(({ title, href }, idx) => (
 								<Link
 									className={`bevel-br flex border-l-3 border-white/40 flex-1 p-2 bg-white/8 hover:bg-white/10 [&.active]:bg-accent/50 [a.active]:border-accent ${pathname === href ? 'active' : ''}`}
-									href={href}
+									href={params ? `${href}?${params}` : href}
 									key={idx}
 								>
 									<span className='uppercase font-bigShouldersDisplay font-bold text-lg'>{title}</span>

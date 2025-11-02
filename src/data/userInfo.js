@@ -4,7 +4,7 @@ const userInfo = {
     githubId: 73862313,
     avatarPath: `${process.env.NODE_ENV === 'production' ? '/portfolio' : ''}/avatar.jpg`,
     localisation: 'Nantes 44',
-    old: Math.floor((new Date() - new Date('10-27-2005')) / (1000 * 60 * 60 * 24 * 365)),
+    old: Math.floor((new Date() - new Date(2005, 9, 27)) / (1000 * 60 * 60 * 24 * 365)),
     email: 'lenny.lqs.pro@gmail.com',
     hasJob: false,
     network: [
