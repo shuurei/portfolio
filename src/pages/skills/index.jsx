@@ -29,7 +29,7 @@ export default function Home() {
 
             <main className='flex flex-wrap gap-5 min-w-sm:flex-col'>
                 {sections.map(({ title, type }) => (
-                    <div className='flex flex-col gap-4 flex-auto min-w-sm' key={type}>
+                    <div className='flex flex-col gap-4 flex-auto min-w-sm:min-w-sm' key={type}>
                         <div className='bevel-bl flex justify-between bg-accent text-2xl xs:text-3xl -tracking-tight font-bold px-3 py-1 uppercase text-black'>
                             <h2 className='font-iceland'>{title}</h2>
                         </div>
