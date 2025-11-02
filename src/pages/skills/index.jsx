@@ -27,7 +27,7 @@ export default function Home() {
                 <meta name='description' content='Découvrez les langages et frameworks que j’utilise' />
             </Head>
 
-            <main className='flex flex-wrap gap-5'>
+            <main className='flex flex-wrap gap-5 min-w-sm:flex-col'>
                 {sections.map(({ title, type }) => (
                     <div className='flex flex-col gap-4 flex-auto min-w-sm' key={type}>
                         <div className='bevel-bl flex justify-between bg-accent text-2xl xs:text-3xl -tracking-tight font-bold px-3 py-1 uppercase text-black'>
