@@ -1,11 +1,13 @@
 import { createContext, useContext } from 'react'
 
 import useFetch from '@/hooks/useFetch'
-import userInfo from '@/data/userInfo'
+import useUserInfo from '@/hooks/useUserInfo'
 
 const UserContext = createContext(null)
 
 export const UserProvider = ({ children }) => {
+    const userInfo = useUserInfo();
+
     const { data: profile, loading, error } = useFetch(
         `https://api.github.com/user/${userInfo.githubId}`
     )

@@ -1,11 +1,12 @@
+import useUserInfo from '@/hooks/useUserInfo';
 import Head from 'next/head'
 
 import { BsBuildingFill } from 'react-icons/bs'
 import { FaGraduationCap } from 'react-icons/fa'
 
-import userInfo from '@/data/userInfo'
-
 export default function Home() {
+    const userInfo = useUserInfo();
+
     return (
         <>
             <Head>
