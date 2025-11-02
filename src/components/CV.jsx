@@ -6,8 +6,8 @@ import { SiLinkedin } from 'react-icons/si'
 import { BsFillBuildingFill } from "react-icons/bs"
 import { FaGraduationCap } from "react-icons/fa"
 
-import userInfo from '@/data/userInfo'
 import userSkills from '@/data/userSkills'
+import useUserInfo from '@/hooks/useUserInfo'
 
 Font.register({
     family: 'Iceland',
@@ -73,6 +73,8 @@ const IconsPDF = ({ icon, color = 'white', size = 24 }) => {
 }
 
 const CV = ({ skills, projects, accentColor, seasonName }) => {
+    const userInfo = useUserInfo();
+
     const tw = createTw({
         fontFamily: {
             iceland: ['Iceland'],
