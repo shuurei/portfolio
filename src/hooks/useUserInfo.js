@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { SiGithub, SiLinkedin } from 'react-icons/si'
 
 export const useUserInfo = () => {
-    const old = useMemo(() => Math.floor((new Date() - new Date('10-27-2005')) / (1000 * 60 * 60 * 24 * 365)), []);
+    const old = useMemo(() => Math.floor((new Date() - new Date(2005, 9, 27)) / (1000 * 60 * 60 * 24 * 365)), []);
 
     return {
         githubId: 73862313,
