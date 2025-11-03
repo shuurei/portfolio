@@ -1,18 +1,22 @@
 const useSeason = () => {
     const seasons = [
         {
+            id: 'winter',
             name: 'Hiver',
             color: '#3096FF'
         },
         {
+            id: 'spring',
             name: 'Printemps',
             color: '#7d64ff'
         },
         {
+            id: 'summer',
             name: 'Été',
             color: '#ded93e'
         },
         {
+            id: 'automn',
             name: 'Automne',
             color: '#FF9930'
         }
