@@ -132,7 +132,7 @@ const CV = ({ skills, projects, accentColor, seasonName }) => {
                                     <View style={[tw('flex gap-2 font-iceland'), { fontSize: 14 }]}>
                                         <View style={tw('flex flex-row gap-2 items-center text-white')}>
                                             <IconsPDF icon={SiLinkedin} size={20} color={accentColor} />
-                                            <Link style={tw('no-underline text-white')} src={`${userInfo.network.find((network) => network.name === 'LinkedIn').link}`}>Lenny L</Link>
+                                            <Link style={tw('no-underline text-white')} src={`${userInfo.network.find((network) => network.name === 'LinkedIn').link}`}>Lenny LQS</Link>
                                         </View>
                                         <View style={tw('flex flex-row gap-2 items-center text-white')}>
                                             <IconsPDF icon={MdEmail} size={20} color={accentColor} />
