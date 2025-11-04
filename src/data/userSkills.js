@@ -13,6 +13,7 @@ import {
     SiLaravel,
     SiMysql,
     SiNextdotjs,
+    SiNodedotjs,
     SiPhp,
     SiPrisma,
     SiPython,
@@ -145,6 +146,11 @@ const userSkills = [
         name: 'Debian',
         icon: SiDebian
     },
+    {
+        type: 'other',
+        name: 'NodeJs',
+        icon: SiNodedotjs
+    }
 ];
 
 export default userSkills;
