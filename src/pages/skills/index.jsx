@@ -11,6 +11,7 @@ const sections = [
     { title: 'Frameworks', type: 'framework' },
     { title: 'Outils', type: 'tools' },
     { title: "Systèmes d'exploitation", type: 'os' },
+    { title: 'Autre', type: 'other' }
 ];
 
 export default function Home() {
