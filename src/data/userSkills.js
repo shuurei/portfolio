@@ -4,6 +4,7 @@ import {
     SiCss3,
     SiDbeaver,
     SiDebian,
+    SiDocker,
     SiFigma,
     SiGit,
     SiGodotengine,
@@ -150,6 +151,11 @@ const userSkills = [
         type: 'other',
         name: 'NodeJs',
         icon: SiNodedotjs
+    },
+    {
+        type: 'other',
+        name: 'Docker',
+        icon: SiDocker
     }
 ];
 
