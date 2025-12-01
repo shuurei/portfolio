@@ -169,7 +169,7 @@ const CV = ({ skills, projects, accentColor, seasonName }) => {
                                     <View style={[tw('border-b-4 border-l-4 absolute h-8 w-8 border-accent'), { bottom: -3, left: -3 }]}></View>
                                     <View style={[tw('border-b-4 border-r-4 absolute h-8 w-8 border-accent'), { bottom: -3, right: -3 }]}></View>
                                 </View>
-                                <Text style={[tw('font-iceland text-white'), { fontSize: 14 }]}>Je m'appelle Lenny, j'ai {userInfo.old} ans. À long terme, je souhaite devenir développeur de jeux vidéo. J’ai également l’objectif d’intégrer la Gendarmerie Nationale. Je continue de développer mes compétences dans le développement web, mobile, et game dev, et j’avance progressivement vers mes objectifs au rythme de mes projets.</Text>
+                                <Text style={[tw('font-iceland text-white'), { fontSize: 14 }]}>Je m'appelle Lenny, j'ai {userInfo.old} ans. Je poursuis activement le développement de mes compétences en web, mobile et game dev, en travaillant régulièrement sur des projets personnels qui me permettent d’apprendre de nouvelles techniques et de progresser à mon rythme. Chaque projet m’aide à gagner en expérience et à me rapprocher de mes objectifs.</Text>
                             </View>
                             {/* Projects */}
                             <View style={tw('flex flex-row gap-4')}>
