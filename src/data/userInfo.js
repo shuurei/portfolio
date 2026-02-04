@@ -9,7 +9,6 @@ const userInfo = {
     localisation: 'Nantes 44',
     old: Math.floor((new Date() - new Date(2005, 9, 27)) / (1000 * 60 * 60 * 24 * 365)),
     email: 'lenny.lqs.pro@gmail.com',
-    hasJob: false,
     network: [
         {
             icon: SiLinkedin,
