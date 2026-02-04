@@ -141,7 +141,7 @@ export default function Layout({ children }) {
 				</div>
 
 				<div className='flex flex-col gap-2'>
-					{!userInfo.hasJob && (
+					{profile?.hireable !== null && (
 						<div className='flex items-center gap-2'>
 							<span className='relative flex h-4 w-4'>
 								<span className='animate-ping absolute inline-flex w-full rounded-full bg-accent opacity-75 h-full'></span>
