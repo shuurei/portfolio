@@ -66,13 +66,13 @@ export default function Layout({ children }) {
 	const { allProjects, loading } = useProjects();
 
     const projects = allProjects
-        .filter(({ description, language, updated_at, showOnCV }) => showOnCV || (description && language && updated_at))
+        .filter(({ description, language, updated_at, showOnCV, fork }) => showOnCV || (description && language && updated_at && !fork))
         .sort((a, b) => {
             if (a.showOnCV) {
                 return 1;
             }
 
-            return b.stargazers_count - a.stargazers_count;
+            return a.stargazers_count - b.stargazers_count;
         });
 
 	const skillsNeeded = useMemo(() => {
