@@ -1,11 +1,8 @@
 import { SiGithub, SiLinkedin } from 'react-icons/si'
-import useSeason from '@/utils/season'
-
-const { currentSeason } = useSeason();
 
 const userInfo = {
     githubId: 73862313,
-    avatarPath: `${process.env.NODE_ENV === 'production' ? '/portfolio' : ''}/avatars/${currentSeason.id}.png`,
+    avatarPath: (currentSeasonId) => `${process.env.NODE_ENV === 'production' ? '/portfolio' : ''}/avatars/${currentSeasonId}.png`,
     localisation: 'Nantes 44',
     old: Math.floor((new Date() - new Date(2005, 9, 27)) / (1000 * 60 * 60 * 24 * 365)),
     email: 'lenny.lqs.pro@gmail.com',

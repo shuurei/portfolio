@@ -11,14 +11,7 @@ export const ThemeProvider = ({ children }) => {
     const [selectedSeason, setSelectedSeason] = useState(currentSeason.id);
     const [currentTheme, setCurrentTheme] = useState(currentSeason.color);
 
-    const [mode, setMode] = useState(() => {
-        if (typeof window === 'undefined') return 'dark';
-
-        const stored = localStorage.getItem('mode');
-        if (stored === 'dark' || stored === 'light') return stored;
-
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    });
+    const [mode, setMode] = useState('dark');
 
     const setSeasonTheme = (id) => {
         const season = seasons.find((season) => season.id === id);
@@ -36,7 +29,7 @@ export const ThemeProvider = ({ children }) => {
 
     const setFalloutTheme = () => {
         setThemeType('fallout');
-        setCurrentTheme('#5CFF5C');
+        setCurrentTheme('#0BE10B');
     };
 
     useEffect(() => {
@@ -47,8 +40,6 @@ export const ThemeProvider = ({ children }) => {
         } else {
             root.setAttribute('data-theme', 'light');
         }
-
-        localStorage.setItem('mode', mode);
     }, [mode]);
 
     useEffect(() => {
