@@ -2,7 +2,7 @@ import Button from '@/components/common/button'
 import Box from '@/components/box'
 import CV from '@/components/CV'
 
-import { Description } from '@mui/icons-material'
+import { Description, Sunny, DarkMode, Monitor } from '@mui/icons-material'
 import Icon from '@/components/icon'
 
 import Link from 'next/link'
@@ -18,15 +18,46 @@ import useSeason from '@/utils/season'
 import userInfo from '@/data/userInfo'
 import { pdf } from '@react-pdf/renderer'
 import { useUser } from '@/contexts/UserContext'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import userSkills from '@/data/userSkills'
 import { useSearchParams } from 'next/navigation'
 
-const UserAvatar = () => {
+const UserAvatar = ({ canLoadAvatar }) => {
+	const [avatar, setAvatar] = useState(userInfo.avatarPath);
+
+	useEffect(() => {
+		const saved = localStorage.getItem('custom-avatar');
+		if (saved) setAvatar(saved);
+	}, []);
+
+	const handleChange = (e) => {
+		const file = e.target.files?.[0]
+		if (!file) return
+
+		const reader = new FileReader();
+
+		reader.onloadend = () => {
+			setAvatar(reader.result);
+			localStorage.setItem('custom-avatar', reader.result);
+		}
+
+		reader.readAsDataURL(file);
+	}
+
 	return (
-		<Box className='p-2'>
-			<img src={userInfo.avatarPath} alt='Avatar' />
+		<Box className='p-2 relative'>
+			{canLoadAvatar && (
+				<label className='absolute h-full w-full'>
+					<input
+						type='file'
+						accept='image/'
+						className='hidden'
+						onChange={handleChange}
+					/>
+				</label>
+			)}
+			<img src={avatar} alt='Avatar' />
 		</Box>
 	);
 }
@@ -38,7 +69,7 @@ const links = [
 	},
 	{
 		title: 'Compétences',
-		href: '/skills' 
+		href: '/skills'
 	},
 	{
 		title: 'Projets',
@@ -46,11 +77,13 @@ const links = [
 	},
 	{
 		title: 'logs',
-		href: '/logs' 
+		href: '/logs'
 	}
 ];
 
 export default function Layout({ children }) {
+	const { mode, setMode } = useTheme();
+
 	const { pathname, query } = useRouter();
 	const { screenWidth } = useScreen();
 
@@ -65,15 +98,15 @@ export default function Layout({ children }) {
 	const { profile } = useUser();
 	const { allProjects, loading } = useProjects();
 
-    const projects = allProjects
-        .filter(({ description, language, updated_at, showOnCV, fork }) => showOnCV || (description && language && updated_at && !fork))
-        .sort((a, b) => {
-            if (a.showOnCV) {
-                return 1;
-            }
+	const projects = allProjects
+		.filter(({ description, language, updated_at, showOnCV, fork }) => showOnCV || (description && language && updated_at && !fork))
+		.sort((a, b) => {
+			if (a.showOnCV) {
+				return 1;
+			}
 
-            return a.stargazers_count - b.stargazers_count;
-        });
+			return a.stargazers_count - b.stargazers_count;
+		});
 
 	const skillsNeeded = useMemo(() => {
 		return query.needs?.split(',') ?? [];
@@ -100,7 +133,18 @@ export default function Layout({ children }) {
 	const downloadPDF = async () => {
 		if (loading) return;
 
-		const blob = await pdf(<CV skills={skills} projects={projects} accentColor={currentTheme} seasonName={currentSeason.name} />).toBlob();
+		const blob = await pdf(
+			<CV
+				skills={skills}
+				projects={projects}
+				accentColor={currentTheme}
+				seasonName={currentSeason.name}
+				theme={document.documentElement.getAttribute('data-theme')}
+				showAvatarCV={(query.showAvatarCV ?? 'true') === 'true'}
+				avatarURL={localStorage.getItem('custom-avatar')}
+			/>
+		).toBlob();
+
 		const url = URL.createObjectURL(blob);
 
 		const link = document.createElement('a');
@@ -119,7 +163,7 @@ export default function Layout({ children }) {
 			<div className='flex flex-col gap-4'>
 				<div className='flex flex-wrap gap-4 justify-center md:flex-nowrap md:flex-col md:max-w-xs'>
 					<div className='min-w-40 max-w-90 flex-1'>
-						<UserAvatar />
+						<UserAvatar canLoadAvatar={query.canLoadAvatar === 'true'} />
 					</div>
 
 					<div className='flex flex-col gap-2 w-full flex-1'>
@@ -164,7 +208,7 @@ export default function Layout({ children }) {
 								const isGithub = name === 'GitHub';
 
 								return (
-									<Button className='flex-1 min-w-35' href={isGithub ?  link.concat(profile?.login) : link} key={name}>
+									<Button className='flex-1 min-w-35' href={isGithub ? link.concat(profile?.login) : link} key={name}>
 										<div className='flex items-center justify-between'>
 											<p>{name}</p>
 											<Icon component={icon} />
@@ -180,6 +224,44 @@ export default function Layout({ children }) {
 							</Button>
 						</div>
 					</div>
+
+					<div className='flex flex-col'>
+						<h4 className='text-lg font-iceland'>Thème</h4>
+						<div className='flex bg-black/20 border-accent border-2 w-fit'>
+							<button
+								onClick={() => setMode('light')}
+								className={`p-2  
+										${mode === 'light'
+										? 'bg-accent text-black'
+										: 'hover:bg-black/10 dark:hover:bg-white/10'
+									}`}
+							>
+								<Sunny size={20} />
+							</button>
+
+							<button
+								onClick={() => setMode('dark')}
+								className={`p-2 
+										${mode === 'dark'
+										? 'bg-accent text-white'
+										: 'hover:bg-black/10 dark:hover:bg-white/10'
+									}`}
+							>
+								<DarkMode size={20} />
+							</button>
+
+							<button
+								onClick={() => setMode('system')}
+								className={`p-2 
+										${mode === 'system'
+										? 'bg-accent text-black'
+										: 'hover:bg-black/10 dark:hover:bg-white/10'
+									}`}
+							>
+								<Monitor size={20} />
+							</button>
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -190,13 +272,13 @@ export default function Layout({ children }) {
 						<div>
 							{/* Menu for max-md */}
 							<button
-								className='sticky top-0 left-0 w-full py-2 font-bold border-2 border-accent bg-black text-accent text-xl uppercase cursor-pointer'
+								className='sticky top-0 left-0 w-full py-2 font-bold border-2 border-accent text-accent text-xl uppercase cursor-pointer'
 								onClick={() => toggleOpenState()}
 							>Navigation</button>
-		
+
 							{isOpen && (
-								<div className='z-50 fixed top-0 left-0 w-full h-full bg-black border-2 border-white/13'>
-									<div className="flex justify-between items-center border-b-2 border-white/10 px-4 py-2">
+								<div className='z-50 fixed top-0 left-0 w-full h-full not-dark:bg-white dark:bg-black border-2 dark:border-white/13 not-dark:border-black/13'>
+									<div className="flex justify-between items-center border-b-2 dark:border-white/10 not-dark:border-black/10 px-4 py-2">
 										<h2 className='text-2xl tracking-wide'>NAVIGATION</h2>
 										<span className="text-3xl cursor-pointer" onClick={() => toggleOpenState()}>X</span>
 									</div>
@@ -204,7 +286,7 @@ export default function Layout({ children }) {
 										{links.map(({ title, href }, idx) => (
 											<Link
 												onClick={() => toggleOpenState()}
-												className={`border-l-2 border-white/40 bg-white/8 px-2 py-1 [&.active]:border-accent [&.active]:bg-accent/40 ${pathname === href ? 'active' : ''}`}
+												className={`border-l-2 dark:border-white/40 not-dark:border-black/40 dark:bg-white/8 not-dark:bg-black/8 px-2 py-1 [&.active]:border-accent [&.active]:bg-accent/40 ${pathname === href ? 'active' : ''}`}
 												href={params ? `${href}?${params}` : href}
 												key={idx}
 											>
@@ -220,7 +302,7 @@ export default function Layout({ children }) {
 							{/* Menu for min-md */}
 							{links.map(({ title, href }, idx) => (
 								<Link
-									className={`bevel-br flex border-l-3 border-white/40 flex-1 p-2 bg-white/8 hover:bg-white/10 [&.active]:bg-accent/50 [a.active]:border-accent ${pathname === href ? 'active' : ''}`}
+									className={`bevel-br flex border-l-3 dark:border-white/40 not-dark:border-black/40 flex-1 p-2 dark:bg-white/8 not-dark:bg-black/8 dark:hover:bg-white/10 not-dark:hover:bg-black/10 [&.active]:bg-accent/50 [a.active]:border-accent ${pathname === href ? 'active' : ''}`}
 									href={params ? `${href}?${params}` : href}
 									key={idx}
 								>
@@ -233,7 +315,7 @@ export default function Layout({ children }) {
 
 				{/* Children box */}
 				<div className='overflow-hidden p-0.5 w-full max-w-6xl'>
-					<Box className='relative w-full h-full border-2 border-white/13 bg-black/20 backdrop-blur-2xl'>
+					<Box className='relative w-full h-full border-2 border-white/13 dark:bg-black/75 not-dark:bg-black/5 backdrop-blur-2xl'>
 						<div className='grow overflow-hidden flex p-2 w-full h-full lg:p-4'>
 							<div className='overflow-auto flex-1 max-h-full'>
 								{children}

@@ -14,15 +14,15 @@ export const ProjectsProvider = ({ children }) => {
     )
 
     const allProjects = useMemo(() => {
-        return [...userProjects, ...(repos ?? [])]
+        return [...userProjects, ...(repos ?? [])].filter(((repo) => repo.name !== profile?.login));
     }, [repos])
 
     const highlightedProjects = useMemo(() => {
-        return allProjects.filter((repo) => repo.topics?.includes('to-portfolio'))
+        return allProjects.filter((repo) => repo.topics?.includes('to-portfolio'));
     }, [allProjects])
 
     const projectsWithoutHighlighted = useMemo(() => {
-        return allProjects.filter((repo) => !repo.topics?.includes('to-portfolio'))
+        return allProjects.filter((repo) => !repo.topics?.includes('to-portfolio'));
     }, [allProjects])
 
     const loading = loadingProfile || loadingRepos

@@ -11,7 +11,7 @@ const sections = [
     { title: 'Frameworks', type: 'framework' },
     { title: 'Outils', type: 'tools' },
     { title: "Systèmes d'exploitation", type: 'os' },
-    { title: 'Autre', type: 'other' }
+    { title: 'Autres', type: 'other' }
 ];
 
 export default function Home() {
@@ -29,33 +29,37 @@ export default function Home() {
             </Head>
 
             <main className='flex flex-wrap gap-5 min-w-sm:flex-col'>
-                {sections.map(({ title, type }) => (
-                    <div className='flex flex-col gap-4 flex-auto min-w-sm:min-w-sm' key={type}>
-                        <div className='bevel-bl flex justify-between bg-accent text-2xl xs:text-3xl -tracking-tight font-bold px-3 py-1 uppercase text-black'>
-                            <h2 className='font-iceland'>{title}</h2>
+                {sections.map(({ title, type }) => {
+                    const skills = userSkills
+                        .filter(skill => skill.type === type)
+                        .map(({ name, icon }, idx) => (
+                            <div className='flex items-center flex-col gap-1' key={idx}>
+                                <Icon
+                                    component={icon}
+                                    className={
+                                        needs.length ?
+                                            needs.includes(name.toLowerCase())
+                                                ? 'text-green-400 animate-pulse'
+                                                : 'text-accent/70'
+                                            : 'text-accent'
+                                    }
+                                    size={64}
+                                />
+                                <p className='text-lg'>{name}</p>
+                            </div>
+                        ));
+
+                    return (
+                        <div className='flex flex-col gap-4 flex-auto min-w-sm:min-w-sm' key={type}>
+                            <div className='bevel-bl flex justify-between bg-accent text-2xl xs:text-3xl -tracking-tight font-bold px-3 py-1 uppercase text-black'>
+                                <h2 className='font-iceland'>{skills.length} {title}</h2>
+                            </div>
+                            <div className='flex flex-wrap justify-center gap-4'>
+                                {skills}
+                            </div>
                         </div>
-                        <div className='flex flex-wrap justify-center gap-4'>
-                            {userSkills
-                                .filter(skill => skill.type === type)
-                                .map(({ name, icon }, idx) => (
-                                    <div className='flex items-center flex-col gap-1' key={idx}>
-                                        <Icon
-                                            component={icon}
-                                            className={
-                                                needs.length ?
-                                                    needs.includes(name.toLowerCase())
-                                                        ? 'text-green-400 animate-pulse'
-                                                        : 'text-accent/70'
-                                                    : 'text-accent'
-                                            }
-                                            size={64}
-                                        />
-                                        <p className='text-lg'>{name}</p>
-                                    </div>
-                                ))}
-                        </div>
-                    </div>
-                ))}
+                    )
+                })}
             </main>
         </>
     );

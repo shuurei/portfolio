@@ -20,7 +20,7 @@ export default function Home() {
                     <div className='flex flex-col gap-4'>
                         <div className='flex flex-col gap-2'>
                             <div className='bevel-bl flex justify-between bg-accent text-2xl xs:text-3xl -tracking-tight font-bold px-3 py-1 uppercase text-black'>
-                                <h2 className='font-iceland'>Projets mis en avant</h2>
+                                <h2 className='font-iceland'>{highlightedProjects.length} Projets mis en avant</h2>
                             </div>
                             <ul className='columns-sm gap-2'>
                                 {highlightedProjects.map(({ name, description, html_url, homepage, language, topics, stargazers_count }, idx) => (
@@ -40,7 +40,7 @@ export default function Home() {
                         </div>
                         <div className='flex flex-col gap-2'>
                             <div className='bevel-bl flex justify-between bg-accent text-2xl xs:text-3xl -tracking-tight font-bold px-3 py-1 uppercase text-black'>
-                                <h2 className='font-iceland'>Projets</h2>
+                                <h2 className='font-iceland'>{projectsWithoutHighlighted.length} Projets</h2>
                             </div>
                             <ul className='columns-sm gap-2'>
                                 {projectsWithoutHighlighted.map(({ name, description, html_url, homepage, language, topics, stargazers_count }, idx) => (

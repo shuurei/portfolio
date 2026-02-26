@@ -4,6 +4,8 @@
 @import 'tailwindcss';
 @config '../tailwind.config.js';
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @theme {
     /* COLORS */
     /* Cyberpunk */
@@ -24,6 +26,17 @@
 @layer base {
     :root {
         --gradient-color: color-mix(in oklab, var(--color-accent) 30%, transparent);
+        --bg-base: #101010;
+        --text-base: #FAFAFA;
+    }
+
+    [data-theme='light'] {
+        --bg-base: #f5f5f5;
+        --text-base: #111111;
+
+        ::-webkit-scrollbar-track {
+            border-right: 10px #f5f5f5e7 solid;
+        }
     }
 
     * {
@@ -47,74 +60,62 @@
     }
 
     html {
-        color: white;
+        background: linear-gradient(225deg, var(--gradient-color) 0%, transparent 15%, transparent 85%, var(--gradient-color) 100%);
+        color: var(--text-base);
         font-family: 'Iceland', sans-serif;
     }
 
-    body {
-        background: linear-gradient(225deg, var(--gradient-color) 0%, transparent 15%, transparent 85%, var(--gradient-color) 100%);
-    }
-
-    h1, h2 {
+    h1,
+    h2 {
         font-family: 'Big Shoulders Display', sans-serif;
     }
 }
 
 @layer utilities {
     .bevel-tl {
-        clip-path: polygon(
-            var(--bevel-size) 0,
-            100% 0, 100% 100%,
-            0 100%,
-            0 var(--bevel-size)
-        );
+        clip-path: polygon(var(--bevel-size) 0,
+                100% 0, 100% 100%,
+                0 100%,
+                0 var(--bevel-size));
     }
 
     .bevel-bl {
-        clip-path: polygon(
-            100% 0,
-            100% 100%,
-            var(--bevel-size) 100%,
-            0 calc(100% - var(--bevel-size)),
-            0 0
-        );
+        clip-path: polygon(100% 0,
+                100% 100%,
+                var(--bevel-size) 100%,
+                0 calc(100% - var(--bevel-size)),
+                0 0);
     }
 
     .bevel-tr {
-        clip-path: polygon(
-            calc(100% - var(--bevel-size)) 0%,
-            100% var(--bevel-size),
-            100% 100%,
-            0 100%,
-            0 0
-        );
+        clip-path: polygon(calc(100% - var(--bevel-size)) 0%,
+                100% var(--bevel-size),
+                100% 100%,
+                0 100%,
+                0 0);
     }
 
     .bevel-br {
-        clip-path: polygon(
-            100% 0,
-            100% calc(100% - var(--bevel-size)),
-            calc(100% - var(--bevel-size)) 100%,
-            0 100%,
-            0 0
-        );
+        clip-path: polygon(100% 0,
+                100% calc(100% - var(--bevel-size)),
+                calc(100% - var(--bevel-size)) 100%,
+                0 100%,
+                0 0);
     }
 
     .bevel {
-        clip-path: polygon(
-            var(--bevel-size) 0,
-            calc(100% - var(--bevel-size)) 0,
-            100% var(--bevel-size),
-            100% calc(100% - var(--bevel-size)),
-            calc(100% - var(--bevel-size)) 100%,
-            var(--bevel-size) 100%,
-            0 calc(100% - var(--bevel-size)),
-            0 var(--bevel-size)
-        );
+        clip-path: polygon(var(--bevel-size) 0,
+                calc(100% - var(--bevel-size)) 0,
+                100% var(--bevel-size),
+                100% calc(100% - var(--bevel-size)),
+                calc(100% - var(--bevel-size)) 100%,
+                var(--bevel-size) 100%,
+                0 calc(100% - var(--bevel-size)),
+                0 var(--bevel-size));
     }
 
     .corner {
-        @apply absolute h-2/8 w-2/8 max-w-8 max-h-8 border-accent; 
+        @apply absolute h-2/8 w-2/8 max-w-8 max-h-8 border-accent;
     }
 
     .drop-shadow-crushed {
