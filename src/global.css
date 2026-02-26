@@ -60,9 +60,13 @@
     }
 
     html {
-        background: linear-gradient(225deg, var(--gradient-color) 0%, transparent 15%, transparent 85%, var(--gradient-color) 100%);
+        background-color: var(--bg-base);
         color: var(--text-base);
         font-family: 'Iceland', sans-serif;
+    }
+
+    body {
+        background: linear-gradient(225deg, var(--gradient-color) 0%, transparent 15%, transparent 85%, var(--gradient-color) 100%);
     }
 
     h1,
