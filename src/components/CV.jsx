@@ -93,12 +93,13 @@ const CV = (props) => {
         projects,
         accentColor,
         seasonName,
-        theme,
+        mode,
+        themeId,
         showAvatarCV = true,
         avatarURL
     } = props;
 
-    const colors = pdfColors[theme];
+    const colors = pdfColors[mode];
 
     const tw = createTw({
         fontFamily: {
@@ -156,7 +157,7 @@ const CV = (props) => {
                                                 <View style={[tw('border-b-4 border-l-4 absolute h-8 w-8 border-accent'), { bottom: -3, left: -3 }]}></View>
                                                 <View style={[tw('border-b-4 border-r-4 absolute h-8 w-8 border-accent'), { bottom: -3, right: -3 }]}></View>
                                             </View>
-                                            <Image src={avatarURL ?? userInfo.avatarPath} />
+                                            <Image src={avatarURL ?? userInfo.avatarPath(themeId)} />
                                         </View>)
                                     }
 

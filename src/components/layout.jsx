@@ -33,13 +33,17 @@ import { useEffect, useMemo, useState } from 'react'
 import userSkills from '@/data/userSkills'
 import { useSearchParams } from 'next/navigation'
 
-const UserAvatar = ({ canLoadAvatar }) => {
-	const [avatar, setAvatar] = useState(userInfo.avatarPath);
+const UserAvatar = ({ canLoadAvatar, themeId }) => {
+	const [avatar, setAvatar] = useState(userInfo.avatarPath(themeId));
 
 	useEffect(() => {
 		const saved = localStorage.getItem('custom-avatar');
-		if (saved) setAvatar(saved);
-	}, []);
+		if (saved) {
+			setAvatar(saved)
+		} else {
+			setAvatar(() => userInfo.avatarPath(themeId));
+		};
+	}, [themeId]);
 
 	const handleChange = (e) => {
 		const file = e.target.files?.[0]
@@ -157,7 +161,8 @@ export default function Layout({ children }) {
 				projects={projects}
 				accentColor={currentTheme}
 				seasonName={currentSeason.name}
-				theme={document.documentElement.getAttribute('data-theme')}
+				themeId={themeType === 'season' ? selectedSeason : themeType}
+				mode={document.documentElement.getAttribute('data-theme')}
 				showAvatarCV={(query.showAvatarCV ?? 'true') === 'true'}
 				avatarURL={localStorage.getItem('custom-avatar')}
 			/>
@@ -181,7 +186,10 @@ export default function Layout({ children }) {
 			<div className='flex flex-col gap-4'>
 				<div className='flex flex-wrap gap-4 justify-center md:flex-nowrap md:flex-col md:max-w-xs'>
 					<div className='min-w-40 max-w-90 flex-1'>
-						<UserAvatar canLoadAvatar={query.canLoadAvatar === 'true'} />
+						<UserAvatar
+							canLoadAvatar={query.canLoadAvatar === 'true'}
+							themeId={themeType === 'season' ? selectedSeason : themeType}
+						/>
 					</div>
 
 					<div className='flex flex-col gap-2 w-full flex-1'>
