@@ -56,6 +56,21 @@ Font.register({
     ]
 });
 
+const pdfColors = {
+    dark: {
+        canvas: '#000000',
+        card: '#101010',
+        neutral: '#303030',
+        base: '#FFFFFF',
+    },
+    light: {
+        canvas: '#FFFFFF',
+        card: '#ffffff80',
+        neutral: '#D5D5D5',
+        base: '#000000',
+    }
+};
+
 const IconsPDF = ({ icon, color = 'white', size = 24 }) => {
     const svg = icon().props.children;
 
@@ -72,15 +87,30 @@ const IconsPDF = ({ icon, color = 'white', size = 24 }) => {
     );
 }
 
-const CV = ({ skills, projects, accentColor, seasonName }) => {
+const CV = (props) => {
+    const {
+        skills,
+        projects,
+        accentColor,
+        seasonName,
+        theme,
+        showAvatarCV = true,
+        avatarURL
+    } = props;
+
+    const colors = pdfColors[theme];
+
     const tw = createTw({
         fontFamily: {
             iceland: ['Iceland'],
             bigShouldersDisplay: ['BigShouldersDisplay'],
         },
         colors: {
+            canvas: colors.canvas,
+            card: colors.card,
+            neutral: colors.neutral,
+            base: colors.base,
             accent: accentColor,
-            neutral: '#303030',
         },
         fontSize: {
             xs: 10,
@@ -95,7 +125,7 @@ const CV = ({ skills, projects, accentColor, seasonName }) => {
 
     return (
         <Document>
-            <Page size='A4' wrap={false} style={[tw('relative bg-black'), { flexDirection: 'column', height: '100%' }]}>
+            <Page size='A4' wrap={false} style={[tw('relative bg-canvas'), { flexDirection: 'column', height: '100%' }]}>
                 <View style={[tw('p-4'), { flex: 1, height: 841.89, justifyContent: 'space-between' }]}>
                     {/* Background Gradient */}
                     <View style={[tw('absolute top-0 left-0 right-0 bottom-0')]}>
@@ -118,27 +148,29 @@ const CV = ({ skills, projects, accentColor, seasonName }) => {
                             <View style={tw('flex gap-4 flex-row')}>
                                 <View style={[tw('flex gap-3'), { width: 250 }]}>
                                     {/* Avatar */}
-                                    <View style={[tw('relative p-2 border-2 border-neutral')]}>
-                                        <View style={tw('absolute top-0 left-0 w-full h-full')}>
-                                            <View style={[tw('border-t-4 border-l-4 absolute h-8 w-8 border-accent'), { top: -3, left: -3 }]}></View>
-                                            <View style={[tw('border-t-4 border-r-4 absolute h-8 w-8 border-accent'), { top: -3, right: -3 }]}></View>
-                                            <View style={[tw('border-b-4 border-l-4 absolute h-8 w-8 border-accent'), { bottom: -3, left: -3 }]}></View>
-                                            <View style={[tw('border-b-4 border-r-4 absolute h-8 w-8 border-accent'), { bottom: -3, right: -3 }]}></View>
-                                        </View>
-                                        <Image src={userInfo.avatarPath} />
-                                    </View>
+                                    {
+                                        showAvatarCV && (<View style={[tw('relative p-2 border-2 border-neutral')]}>
+                                            <View style={tw('absolute top-0 left-0 w-full h-full')}>
+                                                <View style={[tw('border-t-4 border-l-4 absolute h-8 w-8 border-accent'), { top: -3, left: -3 }]}></View>
+                                                <View style={[tw('border-t-4 border-r-4 absolute h-8 w-8 border-accent'), { top: -3, right: -3 }]}></View>
+                                                <View style={[tw('border-b-4 border-l-4 absolute h-8 w-8 border-accent'), { bottom: -3, left: -3 }]}></View>
+                                                <View style={[tw('border-b-4 border-r-4 absolute h-8 w-8 border-accent'), { bottom: -3, right: -3 }]}></View>
+                                            </View>
+                                            <Image src={avatarURL ?? userInfo.avatarPath} />
+                                        </View>)
+                                    }
 
                                     {/* Contact */}
                                     <View style={[tw('flex gap-2 font-iceland'), { fontSize: 14 }]}>
-                                        <View style={tw('flex flex-row gap-2 items-center text-white')}>
+                                        <View style={tw('flex flex-row gap-2 items-center text-base')}>
                                             <IconsPDF icon={SiLinkedin} size={20} color={accentColor} />
-                                            <Link style={tw('no-underline text-white')} src={`${userInfo.network.find((network) => network.name === 'LinkedIn').link}`}>Lenny LQS</Link>
+                                            <Link style={tw('no-underline text-base')} src={`${userInfo.network.find((network) => network.name === 'LinkedIn').link}`}>Lenny LQS</Link>
                                         </View>
-                                        <View style={tw('flex flex-row gap-2 items-center text-white')}>
+                                        <View style={tw('flex flex-row gap-2 items-center text-base')}>
                                             <IconsPDF icon={MdEmail} size={20} color={accentColor} />
-                                            <Link style={tw('no-underline text-white')} src={`mailto:${userInfo.email}`}>{userInfo.email}</Link>
+                                            <Link style={tw('no-underline text-base')} src={`mailto:${userInfo.email}`}>{userInfo.email}</Link>
                                         </View>
-                                        <View style={tw('flex flex-row gap-2 items-center text-white')}>
+                                        <View style={tw('flex flex-row gap-2 items-center text-base')}>
                                             <IconsPDF icon={MdMap} size={20} color={accentColor} />
                                             <Text>{userInfo.localisation}</Text>
                                         </View>
@@ -147,13 +179,13 @@ const CV = ({ skills, projects, accentColor, seasonName }) => {
 
                                 {/* Skills */}
                                 <View style={tw('flex w-full gap-2')}>
-                                    <Text style={tw('flex justify-between bg-accent text-black font-bold font-bigShouldersDisplay px-3 py-1 uppercase')}>{userSkills.length} Compétences {skillsNeeded.length  ? ` | ${skillsNeeded.length} qui pourraient vous intéresser` : ''}</Text>
+                                    <Text style={tw('flex justify-between bg-accent text-black font-bold font-bigShouldersDisplay px-3 py-1 uppercase')}>{userSkills.length} Compétences {skillsNeeded.length ? ` | ${skillsNeeded.length} qui pourraient vous intéresser` : ''}</Text>
                                     <View style={[tw('p-2 py-4 border-2 border-neutral')]}>
                                         <View style={tw('flex flex-wrap flex-row gap-4')}>
                                             {skills.map(({ name, icon, isNeeded }, idx) => (
                                                 <View style={[tw('flex items-center gap-2'), { width: 65 }]} key={idx}>
                                                     <IconsPDF icon={icon} color={isNeeded ? '#05df72' : accentColor} />
-                                                    <Text style={[tw('font-iceland text-white text-center'), { fontSize: 14 }]}>{name}</Text>
+                                                    <Text style={[tw('font-iceland text-base text-center'), { fontSize: 14 }]}>{name}</Text>
                                                 </View>
                                             ))}
                                         </View>
@@ -169,7 +201,7 @@ const CV = ({ skills, projects, accentColor, seasonName }) => {
                                     <View style={[tw('border-b-4 border-l-4 absolute h-8 w-8 border-accent'), { bottom: -3, left: -3 }]}></View>
                                     <View style={[tw('border-b-4 border-r-4 absolute h-8 w-8 border-accent'), { bottom: -3, right: -3 }]}></View>
                                 </View>
-                                <Text style={[tw('font-iceland text-white'), { fontSize: 14 }]}>Je m'appelle Lenny, j'ai {userInfo.old} ans. Je poursuis activement le développement de mes compétences en web, mobile et game dev, en travaillant régulièrement sur des projets personnels qui me permettent d’apprendre de nouvelles techniques et de progresser à mon rythme. Chaque projet m’aide à gagner en expérience et à me rapprocher de mes objectifs.</Text>
+                                <Text style={[tw('font-iceland text-base'), { fontSize: 14 }]}>Je m'appelle Lenny, j'ai {userInfo.old} ans. Je poursuis activement le développement de mes compétences en web, mobile et game dev, en travaillant régulièrement sur des projets personnels qui me permettent d’apprendre de nouvelles techniques et de progresser à mon rythme. Chaque projet m’aide à gagner en expérience et à me rapprocher de mes objectifs.</Text>
                             </View>
                             {/* Projects */}
                             <View style={tw('flex flex-row gap-4')}>
@@ -177,7 +209,7 @@ const CV = ({ skills, projects, accentColor, seasonName }) => {
                                     <Text style={tw('flex justify-between bg-accent text-black font-bold font-bigShouldersDisplay px-3 py-1 uppercase')}>{projects.length} Projets</Text>
                                     <View style={tw('flex gap-2')}>
                                         {projects.slice(0, 3).map(({ name, description, language }, idx) => (
-                                            <View style={[tw('flex p-3 gap-4 bg-black border-2 text-white border-neutral')]} key={idx}>
+                                            <View style={[tw('flex p-3 gap-4 bg-card border-2 text-base border-neutral')]} key={idx}>
                                                 <View style={tw('flex gap-6')}>
                                                     <Text style={[tw('font-bigShouldersDisplay font-bold text-accent'), { flex: 1, fontSize: 15 }]}>{name}</Text>
                                                     <Text style={[tw('font-iceland font-bold text-accent'), { flex: 1, color: '#AAAAAA', fontSize: 10 }]}>{language}</Text>
@@ -192,7 +224,7 @@ const CV = ({ skills, projects, accentColor, seasonName }) => {
                                     <Text style={tw('flex justify-between bg-accent text-black font-bold font-bigShouldersDisplay px-3 py-1 uppercase')}>{userInfo.experiences.length} Expériences</Text>
                                     <View style={tw('flex gap-2')}>
                                         {userInfo.experiences.map(({ title, description, startAt, endAt }, idx) => (
-                                            <View style={[tw('flex p-3 gap-2 bg-black border-2 text-white border-neutral')]} key={idx}>
+                                            <View style={[tw('flex p-3 gap-2 bg-card border-2 text-base border-neutral')]} key={idx}>
                                                 <View style={tw('flex flex-row gap-2 w-full')}>
                                                     <IconsPDF icon={BsFillBuildingFill} size={20} color={accentColor} />
                                                     <Text style={[tw('font-bigShouldersDisplay font-bold text-accent'), { flex: 1, fontSize: 15 }]}>{title}</Text>
@@ -208,7 +240,7 @@ const CV = ({ skills, projects, accentColor, seasonName }) => {
                                     <Text style={tw('flex justify-between bg-accent text-black font-bold font-bigShouldersDisplay px-3 py-1 uppercase')}>{userInfo.diplomas.length} Diplômes</Text>
                                     <View style={tw('flex gap-2')}>
                                         {userInfo.diplomas.map(({ title, startAt, degrees, endAt, school }, idx) => (
-                                            <View style={[tw('flex p-3 gap-2 bg-black border-2 text-white border-neutral')]} key={idx}>
+                                            <View style={[tw('flex p-3 gap-2 bg-card border-2 text-base border-neutral')]} key={idx}>
                                                 <View style={tw('flex gap-3')}>
                                                     <View style={tw('flex flex-row gap-2 w-full')}>
                                                         <IconsPDF icon={FaGraduationCap} size={20} color={accentColor} />

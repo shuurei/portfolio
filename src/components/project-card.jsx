@@ -1,9 +1,9 @@
-import { useMemo } from 'react';
+import { useMemo } from 'react'
 
-import { GitHub } from '@mui/icons-material';
-import { Star } from '@mui/icons-material';
-import Button from '@/components/common/button.jsx';
-import { Web } from '@mui/icons-material';
+import Button from '@/components/common/button.jsx'
+import { GitHub } from '@mui/icons-material'
+import { Star } from '@mui/icons-material'
+import { Web } from '@mui/icons-material'
 
 const ProjectCard = ({ title, description, githubLink, href, language, tags, starsCount }) => {
     const tagsFiltered = useMemo(() => {
@@ -12,7 +12,7 @@ const ProjectCard = ({ title, description, githubLink, href, language, tags, sta
 
     return (
         <div className='bevel-tr bg-white/13 p-0.5'>
-            <div className='bevel-tr p-4 flex flex-col gap-2 bg-black'>
+            <div className='bevel-tr p-4 flex flex-col gap-2 dark:bg-black/65 not-dark:bg-white/50'>
                 <div>
                     <div>
                         <div className='flex justify-between items-center'>
@@ -25,10 +25,10 @@ const ProjectCard = ({ title, description, githubLink, href, language, tags, sta
                             )}
                         </div>
 
-                        <p className='text-white/80 mt-2'>{language}</p>
+                        <p className='dark:text-white/80 mt-2'>{language}</p>
                     </div>
 
-                    {description && <p className='text-white/45'>{description}</p>}
+                    {description && <p className='dark:text-white/45 not-dark:text-black/60'>{description}</p>}
                 </div>
 
                 {tags?.length > 0 && (
@@ -39,7 +39,7 @@ const ProjectCard = ({ title, description, githubLink, href, language, tags, sta
                         </div>
                         <div className='flex flex-wrap gap-2'>
                             {tagsFiltered?.map((tagName, idx) => (
-                                <div className='bg-accent/20 px-2 py-1 bevel-br hover:bg-accent/80' key={idx}>
+                                <div className='bg-accent/20 px-2 py-1 bevel-br' key={idx}>
                                     <span>{tagName}</span>
                                 </div>
                             ))}
