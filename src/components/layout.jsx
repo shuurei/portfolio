@@ -2,7 +2,17 @@ import Button from '@/components/common/button'
 import Box from '@/components/box'
 import CV from '@/components/CV'
 
-import { Description, Sunny, DarkMode, Monitor } from '@mui/icons-material'
+import {
+	Description,
+	Sunny,
+	DarkMode,
+	AcUnit,
+	WbSunny,
+	LocalFlorist,
+	Park,
+	Memory,
+	Biotech
+} from '@mui/icons-material'
 import Icon from '@/components/icon'
 
 import Link from 'next/link'
@@ -92,7 +102,15 @@ export default function Layout({ children }) {
 
 	const { isOpen, toggleOpenState } = useMenu();
 
-	const { currentTheme } = useTheme();
+	const {
+		currentTheme,
+		selectedSeason,
+		setSeasonTheme,
+		setCyberpunkTheme,
+		setFalloutTheme,
+		themeType
+	} = useTheme();
+
 	const { currentSeason } = useSeason();
 
 	const { profile } = useUser();
@@ -227,39 +245,92 @@ export default function Layout({ children }) {
 
 					<div className='flex flex-col'>
 						<h4 className='text-lg font-iceland'>Thème</h4>
-						<div className='flex bg-black/20 border-accent border-2 w-fit'>
-							<button
-								onClick={() => setMode('light')}
-								className={`p-2  
-										${mode === 'light'
-										? 'bg-accent text-black'
-										: 'hover:bg-black/10 dark:hover:bg-white/10'
-									}`}
-							>
-								<Sunny size={20} />
-							</button>
+						<div className='flex gap-2'>
+							<div className='flex bg-black/20 border-accent border-2 w-fit'>
+								<button
+									onClick={() => setMode('light')}
+									className={`p-2  
+											${mode === 'light'
+											? 'bg-accent text-black'
+											: 'hover:bg-black/10 dark:hover:bg-white/10'
+										}`}
+								>
+									<Sunny size={20} />
+								</button>
 
-							<button
-								onClick={() => setMode('dark')}
-								className={`p-2 
-										${mode === 'dark'
-										? 'bg-accent text-white'
-										: 'hover:bg-black/10 dark:hover:bg-white/10'
-									}`}
-							>
-								<DarkMode size={20} />
-							</button>
-
-							<button
-								onClick={() => setMode('system')}
-								className={`p-2 
-										${mode === 'system'
-										? 'bg-accent text-black'
-										: 'hover:bg-black/10 dark:hover:bg-white/10'
-									}`}
-							>
-								<Monitor size={20} />
-							</button>
+								<button
+									onClick={() => setMode('dark')}
+									className={`p-2 
+											${mode === 'dark'
+											? 'bg-accent text-white'
+											: 'hover:bg-black/10 dark:hover:bg-white/10'
+										}`}
+								>
+									<DarkMode size={20} />
+								</button>
+							</div>
+							<div className='flex bg-black/20 border-accent border-2 w-fit'>
+								<button
+									onClick={() => setSeasonTheme('winter')}
+									className={`p-2 
+											${themeType === 'season' && selectedSeason === 'winter'
+											? 'bg-accent text-black'
+											: 'hover:bg-black/10 dark:hover:bg-white/10'
+										}`}
+								>
+									<AcUnit size={20} />
+								</button>
+								<button
+									onClick={() => setSeasonTheme('summer')}
+									className={`p-2 
+											${themeType === 'season' && selectedSeason === 'summer'
+											? 'bg-accent text-black'
+											: 'hover:bg-black/10 dark:hover:bg-white/10'
+										}`}
+								>
+									<WbSunny size={20} />
+								</button>
+								<button
+									onClick={() => setSeasonTheme('spring')}
+									className={`p-2 
+											${themeType === 'season' && selectedSeason === 'spring'
+											? 'bg-accent text-black'
+											: 'hover:bg-black/10 dark:hover:bg-white/10'
+										}`}
+								>
+									<LocalFlorist size={20} />
+								</button>
+								<button
+									onClick={() => setSeasonTheme('automn')}
+									className={`p-2 
+											${themeType === 'season' && selectedSeason === 'automn'
+											? 'bg-accent text-black'
+											: 'hover:bg-black/10 dark:hover:bg-white/10'
+										}`}
+								>
+									<Park size={20} />
+								</button>
+								<button
+									onClick={() => setCyberpunkTheme()}
+									className={`p-2 
+											${themeType === 'cyberpunk'
+											? 'bg-accent text-black'
+											: 'hover:bg-black/10 dark:hover:bg-white/10'
+										}`}
+								>
+									<Memory size={20} />
+								</button>
+								<button
+									onClick={() => setFalloutTheme()}
+									className={`p-2 
+											${themeType === 'fallout'
+											? 'bg-accent text-black'
+											: 'hover:bg-black/10 dark:hover:bg-white/10'
+										}`}
+								>
+									<Biotech size={20} />
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>

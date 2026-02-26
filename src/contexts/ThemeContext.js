@@ -5,10 +5,11 @@ import useSeason from '@/utils/season'
 const ThemeContext = createContext(null);
 
 export const ThemeProvider = ({ children }) => {
-    const { currentSeason } = useSeason();
+    const { seasons, currentSeason } = useSeason();
 
+    const [themeType, setThemeType] = useState('season');
+    const [selectedSeason, setSelectedSeason] = useState(currentSeason.id);
     const [currentTheme, setCurrentTheme] = useState(currentSeason.color);
-    const [isSeasonTheme, setIsSeasonTheme] = useState(true);
 
     const [mode, setMode] = useState(() => {
         if (typeof window === 'undefined') return 'dark';
@@ -19,17 +20,24 @@ export const ThemeProvider = ({ children }) => {
         return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     });
 
-    const setSeasonTheme = () => {
-        setIsSeasonTheme(true);
-        setCurrentTheme(currentSeason.color);
+    const setSeasonTheme = (id) => {
+        const season = seasons.find((season) => season.id === id);
+        if (!season) return
+
+        setThemeType('season');
+        setSelectedSeason(id);
+        setCurrentTheme(season.color);
+    }
+
+    const setCyberpunkTheme = () => {
+        setThemeType('cyberpunk');
+        setCurrentTheme('#FF5D5D');
     };
 
-    const setCustomTheme = (color) => {
-        setIsSeasonTheme(false);
-        setCurrentTheme(color);
+    const setFalloutTheme = () => {
+        setThemeType('fallout');
+        setCurrentTheme('#5CFF5C');
     };
-
-    const setCyberpunkTheme = () => setCustomTheme('#FF5D5D');
 
     useEffect(() => {
         const root = document.documentElement;
@@ -51,9 +59,12 @@ export const ThemeProvider = ({ children }) => {
         <ThemeContext.Provider value={{
             mode,
             currentTheme,
-            isSeasonTheme,
+            isSeasonTheme: themeType === 'season',
+            themeType,
+            selectedSeason,
             setSeasonTheme,
             setCyberpunkTheme,
+            setFalloutTheme,
             setMode
         }}>
             {children}

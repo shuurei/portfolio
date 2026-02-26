@@ -8,12 +8,6 @@
 
 @theme {
     /* COLORS */
-    /* Cyberpunk */
-    /* --color-accent: #ff5d5d; */
-
-    /* Fallout */
-    /* --color-accent: #00ee00; */
-
     --color-accent: var(--accent-season, #FFF);
 
     --bevel-size: 0.5rem;
