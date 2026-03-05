@@ -23,7 +23,16 @@ export default function Home() {
                                 <h2 className='font-iceland'>{highlightedProjects.length} Projets mis en avant</h2>
                             </div>
                             <ul className='columns-sm gap-2'>
-                                {highlightedProjects.map(({ name, description, html_url, homepage, language, topics, stargazers_count }, idx) => (
+                                {highlightedProjects.map(({
+                                    name,
+                                    description,
+                                    html_url,
+                                    homepage,
+                                    language,
+                                    topics,
+                                    stargazers_count,
+                                    created_at
+                                }, idx) => (
                                     <li key={idx} className='first:mt-0 mt-2 break-inside-avoid'>
                                         <ProjectCard
                                             title={name}
@@ -33,6 +42,7 @@ export default function Home() {
                                             href={homepage}
                                             tags={topics}
                                             starsCount={stargazers_count}
+                                            createdAt={created_at}
                                         />
                                     </li>
                                 ))}
@@ -43,7 +53,16 @@ export default function Home() {
                                 <h2 className='font-iceland'>{projectsWithoutHighlighted.length} Projets</h2>
                             </div>
                             <ul className='columns-sm gap-2'>
-                                {projectsWithoutHighlighted.map(({ name, description, html_url, homepage, language, topics, stargazers_count }, idx) => (
+                                {projectsWithoutHighlighted.map(({
+                                    name,
+                                    description,
+                                    html_url,
+                                    homepage,
+                                    language,
+                                    topics,
+                                    stargazers_count,
+                                    created_at
+                                }, idx) => (
                                     <li key={idx} className='first:mt-0 mt-2 break-inside-avoid'>
                                         <ProjectCard
                                             title={name}
@@ -53,6 +72,7 @@ export default function Home() {
                                             href={homepage}
                                             tags={topics}
                                             starsCount={stargazers_count}
+                                            createdAt={created_at}
                                         />
                                     </li>
                                 ))}

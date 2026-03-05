@@ -22,8 +22,8 @@ export default function Home() {
                         <ul className='columns-sm gap-2'>
                             {userInfo.experiences.map(({ title, description, startAt, endAt }, idx) => (
                                 <li key={idx} className='first:mt-0 mt-2 break-inside-avoid'>
-                                    <div className='bevel-tr bg-white/13 p-0.5' key={idx}>
-                                        <div className='bevel-tr p-4 flex flex-col gap-1 dark:bg-black not-dark:bg-white/80'>
+                                    <div className='bevel-tr dark:bg-accent/30 bg-accent/13 p-0.5' key={idx}>
+                                        <div className='bevel-tr p-4 flex flex-col gap-1 dark:bg-black/65 not-dark:bg-white/50'>
                                             <div className='flex flex-col gap-1'>
                                                 <div className='flex gap-1'>
                                                     <BsBuildingFill className='text-accent' size={32} />
@@ -47,8 +47,8 @@ export default function Home() {
                         <ul className='columns-sm gap-2'>
                             {userInfo.diplomas.map(({ title, startAt, endAt, degrees, school }, idx) => (
                                 <li key={idx} className='first:mt-0 mt-2 break-inside-avoid'>
-                                    <div className='bevel-tr bg-white/13 p-0.5' key={idx}>
-                                        <div className='bevel-tr p-4 flex flex-col gap-1 dark:bg-black/65 not-dark:bg-white/80'>
+                                    <div className='bevel-tr dark:bg-accent/30 bg-accent/13 p-0.5' key={idx}>
+                                        <div className='bevel-tr p-4 flex flex-col gap-1 dark:bg-black/65 not-dark:bg-white/50'>
                                             <div className='flex flex-col gap-1'>
                                                 <div className='flex gap-1'>
                                                     <FaGraduationCap className='text-accent' size={32} />
