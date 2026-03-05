@@ -1,21 +1,21 @@
 import { createContext, useContext, useMemo } from 'react'
 
 import useFetch from '@/hooks/useFetch'
-import { useUser } from '@/contexts/UserContext'
 import userProjects from '@/data/userProjects'
+import { useUser } from '@/contexts/UserContext'
 
-const ProjectsContext = createContext(null)
+const ProjectsContext = createContext(null);
 
 export const ProjectsProvider = ({ children }) => {
     const { profile, loading: loadingProfile } = useUser()
 
     const { data: repos, loading: loadingRepos } = useFetch(
         profile?.login ? `https://api.github.com/users/${profile.login}/repos` : null
-    )
+    );
 
     const allProjects = useMemo(() => {
         return [...userProjects, ...(repos ?? [])].filter(((repo) => repo.name !== profile?.login));
-    }, [repos])
+    }, [repos]);
 
     const highlightedProjects = useMemo(() => {
         return allProjects.filter((repo) => repo.topics?.includes('to-portfolio'));
@@ -25,7 +25,7 @@ export const ProjectsProvider = ({ children }) => {
         return allProjects.filter((repo) => !repo.topics?.includes('to-portfolio'));
     }, [allProjects])
 
-    const loading = loadingProfile || loadingRepos
+    const loading = loadingProfile || loadingRepos;
 
     return (
         <ProjectsContext.Provider
@@ -38,7 +38,7 @@ export const ProjectsProvider = ({ children }) => {
         >
             {children}
         </ProjectsContext.Provider>
-    )
+    );
 }
 
 export const useProjects = () => {

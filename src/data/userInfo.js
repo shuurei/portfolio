@@ -2,7 +2,7 @@ import { SiGithub, SiLinkedin } from 'react-icons/si'
 
 const userInfo = {
     githubId: 73862313,
-    avatarPath: (currentSeasonId) => `${process.env.NODE_ENV === 'production' ? '/portfolio' : ''}/avatars/${currentSeasonId}.png`,
+    avatarPath: (currentSeasonId) => `${process.env.NODE_ENV === 'production' ? '/portfolio' : ''}/avatars/${currentSeasonId ?? 'winter'}.png`,
     localisation: 'Nantes 44',
     old: Math.floor((new Date() - new Date(2005, 9, 27)) / (1000 * 60 * 60 * 24 * 365)),
     email: 'lenny.lqs.pro@gmail.com',
@@ -21,7 +21,7 @@ const userInfo = {
     experiences: [
         {
             title: 'Apprenti Développeur Full-Stack',
-            description: 'Développement de " NeoCampus " la plate-forme collaborative des étudiants et enseignants de l’École de Design de Nantes Loire-Atlantique.',
+            description: 'Développement de " NeoCampus " la plate-forme collaborative des étudiants et enseignants de l’École de Design de Nantes Atlantique.',
             startAt: '02/20/2024',
             endAt: '01/15/2025',
         },

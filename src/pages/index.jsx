@@ -48,7 +48,7 @@ export default function Home() {
                         <div className='bevel-bl flex justify-between bg-accent text-2xl xs:text-3xl -tracking-tight font-bold px-3 py-1 uppercase text-black'>
                             <h2 className='font-iceland'>{title}</h2>
                         </div>
-                        <p className='text-lg ml-2'>{content}</p>
+                        <p className='text-xl ml-2'>{content}</p>
                     </div>
                 ))}
             </main>

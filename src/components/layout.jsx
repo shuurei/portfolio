@@ -23,7 +23,7 @@ import { useTheme } from '@/contexts/ThemeContext'
 import { useProjects } from '@/contexts/ProjectsContext'
 
 import useScreen from '@/hooks/useScreen'
-import useSeason from '@/utils/season'
+import useSeason from '@/contexts/useSeason'
 
 import userInfo from '@/data/userInfo'
 import { pdf } from '@react-pdf/renderer'
@@ -109,9 +109,7 @@ export default function Layout({ children }) {
 	const {
 		currentTheme,
 		selectedSeason,
-		setSeasonTheme,
-		setCyberpunkTheme,
-		setFalloutTheme,
+		setTheme,
 		themeType
 	} = useTheme();
 
@@ -181,7 +179,7 @@ export default function Layout({ children }) {
 	};
 
 	return (
-		<div className='flex flex-col md:flex-row h-full gap-4'>
+		<div className='flex flex-col h-full md:flex-row gap-4'>
 			{/* Left Side */}
 			<div className='flex flex-col gap-4'>
 				<div className='flex flex-wrap gap-4 justify-center md:flex-nowrap md:flex-col md:max-w-xs'>
@@ -253,8 +251,8 @@ export default function Layout({ children }) {
 
 					<div className='flex flex-col'>
 						<h4 className='text-lg font-iceland'>Thème</h4>
-						<div className='flex gap-2'>
-							<div className='flex bg-black/20 border-accent border-2 w-fit'>
+						<div className='flex flex-wrap gap-2'>
+							<div className='flex bg-black/20 border-accent border-2 w-fit *:cursor-pointer'>
 								<button
 									onClick={() => setMode('light')}
 									className={`p-2  
@@ -277,9 +275,9 @@ export default function Layout({ children }) {
 									<DarkMode size={20} />
 								</button>
 							</div>
-							<div className='flex bg-black/20 border-accent border-2 w-fit'>
+							<div className='flex bg-black/20 border-accent border-2 w-fit *:cursor-pointer'>
 								<button
-									onClick={() => setSeasonTheme('winter')}
+									onClick={() => setTheme('winter')}
 									className={`p-2 
 											${themeType === 'season' && selectedSeason === 'winter'
 											? 'bg-accent text-black'
@@ -289,7 +287,7 @@ export default function Layout({ children }) {
 									<AcUnit size={20} />
 								</button>
 								<button
-									onClick={() => setSeasonTheme('summer')}
+									onClick={() => setTheme('summer')}
 									className={`p-2 
 											${themeType === 'season' && selectedSeason === 'summer'
 											? 'bg-accent text-black'
@@ -299,7 +297,7 @@ export default function Layout({ children }) {
 									<WbSunny size={20} />
 								</button>
 								<button
-									onClick={() => setSeasonTheme('spring')}
+									onClick={() => setTheme('spring')}
 									className={`p-2 
 											${themeType === 'season' && selectedSeason === 'spring'
 											? 'bg-accent text-black'
@@ -309,9 +307,9 @@ export default function Layout({ children }) {
 									<LocalFlorist size={20} />
 								</button>
 								<button
-									onClick={() => setSeasonTheme('automn')}
+									onClick={() => setTheme('autumn')}
 									className={`p-2 
-											${themeType === 'season' && selectedSeason === 'automn'
+											${themeType === 'season' && selectedSeason === 'autumn'
 											? 'bg-accent text-black'
 											: 'hover:bg-black/10 dark:hover:bg-white/10'
 										}`}
@@ -319,7 +317,7 @@ export default function Layout({ children }) {
 									<Park size={20} />
 								</button>
 								<button
-									onClick={() => setCyberpunkTheme()}
+									onClick={() => setTheme('cyberpunk')}
 									className={`p-2 
 											${themeType === 'cyberpunk'
 											? 'bg-accent text-black'
@@ -329,7 +327,7 @@ export default function Layout({ children }) {
 									<Memory size={20} />
 								</button>
 								<button
-									onClick={() => setFalloutTheme()}
+									onClick={() => setTheme('fallout')}
 									className={`p-2 
 											${themeType === 'fallout'
 											? 'bg-accent text-black'

@@ -210,9 +210,9 @@ const CV = (props) => {
                                     <Text style={tw('flex justify-between bg-accent text-black font-bold font-bigShouldersDisplay px-3 py-1 uppercase')}>{projects.length} Projets</Text>
                                     <View style={tw('flex gap-2')}>
                                         {projects.slice(0, 3).map(({ name, description, language }, idx) => (
-                                            <View style={[tw('flex p-3 gap-4 bg-card border-2 text-base border-neutral')]} key={idx}>
+                                            <View style={[tw('flex p-3 gap-4 bg-card border-2 text-base border-accent')]} key={idx}>
                                                 <View style={tw('flex gap-6')}>
-                                                    <Text style={[tw('font-bigShouldersDisplay font-bold text-accent'), { flex: 1, fontSize: 15 }]}>{name}</Text>
+                                                    <Text style={[tw('font-bigShouldersDisplay font-bold text-accent mb-1'), { flex: 1, fontSize: 15 }]}>// {name.replaceAll('-', ' ').toUpperCase()}</Text>
                                                     <Text style={[tw('font-iceland font-bold text-accent'), { flex: 1, color: '#AAAAAA', fontSize: 10 }]}>{language}</Text>
                                                 </View>
                                                 <Text style={[tw('font-iceland'), { fontSize: 12 }]}>{description}</Text>
@@ -225,10 +225,10 @@ const CV = (props) => {
                                     <Text style={tw('flex justify-between bg-accent text-black font-bold font-bigShouldersDisplay px-3 py-1 uppercase')}>{userInfo.experiences.length} Expériences</Text>
                                     <View style={tw('flex gap-2')}>
                                         {userInfo.experiences.map(({ title, description, startAt, endAt }, idx) => (
-                                            <View style={[tw('flex p-3 gap-2 bg-card border-2 text-base border-neutral')]} key={idx}>
+                                            <View style={[tw('flex p-3 gap-2 bg-card border-2 text-base border-accent')]} key={idx}>
                                                 <View style={tw('flex flex-row gap-2 w-full')}>
                                                     <IconsPDF icon={BsFillBuildingFill} size={20} color={accentColor} />
-                                                    <Text style={[tw('font-bigShouldersDisplay font-bold text-accent'), { flex: 1, fontSize: 15 }]}>{title}</Text>
+                                                    <Text style={[tw('font-bigShouldersDisplay font-bold text-accent'), { flex: 1, fontSize: 15 }]}>{title.replaceAll('-', ' ')}</Text>
                                                 </View>
                                                 <View style={[tw('flex flex-row gap-0 font-iceland'), { fontSize: 10, color: '#909090' }]}>
                                                     <Text>{new Date(startAt).toLocaleDateString('fr-FR', { year: 'numeric', month: 'short' })} - </Text>
@@ -241,12 +241,12 @@ const CV = (props) => {
                                     <Text style={tw('flex justify-between bg-accent text-black font-bold font-bigShouldersDisplay px-3 py-1 uppercase')}>{userInfo.diplomas.length} Diplômes</Text>
                                     <View style={tw('flex gap-2')}>
                                         {userInfo.diplomas.map(({ title, startAt, degrees, endAt, school }, idx) => (
-                                            <View style={[tw('flex p-3 gap-2 bg-card border-2 text-base border-neutral')]} key={idx}>
+                                            <View style={[tw('flex p-3 gap-2 bg-card border-2 text-base border-accent')]} key={idx}>
                                                 <View style={tw('flex gap-3')}>
                                                     <View style={tw('flex flex-row gap-2 w-full')}>
                                                         <IconsPDF icon={FaGraduationCap} size={20} color={accentColor} />
                                                         <View style={tw('flex gap-5')}>
-                                                            <Text style={[tw('font-bigShouldersDisplay font-bold text-accent'), { flex: 1, fontSize: 15 }]}>{title}</Text>
+                                                            <Text style={[tw('font-bigShouldersDisplay font-bold text-accent'), { flex: 1, fontSize: 15 }]}>{title.replaceAll('-', ' ')}</Text>
                                                             {degrees && <Text style={[tw('font-iceland font-bold text-accent'), { flex: 1, color: '#AAAAAA', fontSize: 10 }]}>{degrees}</Text>}
                                                         </View>
                                                     </View>
