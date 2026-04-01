@@ -1,7 +1,7 @@
 import {
     SiArchlinux,
     SiCplusplus,
-    SiCss3,
+    SiCss,
     SiDbeaver,
     SiDebian,
     SiDocker,
@@ -35,7 +35,7 @@ const userSkills = [
     {
         type: 'language',
         name: 'CSS',
-        icon: SiCss3
+        icon: SiCss
     },
     {
         type: 'language',

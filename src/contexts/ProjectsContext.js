@@ -3,6 +3,7 @@ import { createContext, useContext, useMemo } from 'react'
 import useFetch from '@/hooks/useFetch'
 import userProjects from '@/data/userProjects'
 import { useUser } from '@/contexts/UserContext'
+import repoInfoOverride from '@/data/repoInfoOverride'
 
 const ProjectsContext = createContext(null);
 
@@ -14,7 +15,18 @@ export const ProjectsProvider = ({ children }) => {
     );
 
     const allProjects = useMemo(() => {
-        return [...userProjects, ...(repos ?? [])].filter(((repo) => repo.name !== profile?.login));
+        const reposOverrided = (repos ?? []).map((repo) => {
+            const override = repoInfoOverride[repo.id];
+            return override ? { ...repo, ...override } : repo;
+        });
+
+        return [...userProjects, ...reposOverrided]
+            .filter((repo) => repo.name !== profile?.login)
+            .map((project) => {
+                project.showOnCV = project.topics && project.topics.includes('show-on-cv');
+                console.log(project.showOnCV, project.name)
+                return project
+            });
     }, [repos]);
 
     const highlightedProjects = useMemo(() => {

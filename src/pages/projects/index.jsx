@@ -23,26 +23,16 @@ export default function Home() {
                                 <h2 className='font-iceland'>{highlightedProjects.length} Projets mis en avant</h2>
                             </div>
                             <ul className='columns-sm gap-2'>
-                                {highlightedProjects.map(({
-                                    name,
-                                    description,
-                                    html_url,
-                                    homepage,
-                                    language,
-                                    topics,
-                                    stargazers_count,
-                                    created_at
-                                }, idx) => (
+                                {highlightedProjects.map((project, idx) => (
                                     <li key={idx} className='first:mt-0 mt-2 break-inside-avoid'>
                                         <ProjectCard
-                                            title={name}
-                                            description={description}
-                                            language={language}
-                                            githubLink={html_url}
-                                            href={homepage}
-                                            tags={topics}
-                                            starsCount={stargazers_count}
-                                            createdAt={created_at}
+                                            {...project}
+                                            title={project.name}
+                                            githubLink={project.html_url}
+                                            href={project.homepage}
+                                            starsCount={project.stargazers_count}
+                                            createdAt={project.created_at}
+                                            isFork={project.fork}
                                         />
                                     </li>
                                 ))}
@@ -50,29 +40,19 @@ export default function Home() {
                         </div>
                         <div className='flex flex-col gap-2'>
                             <div className='bevel-bl flex justify-between bg-accent text-2xl xs:text-3xl -tracking-tight font-bold px-3 py-1 uppercase text-black'>
-                                <h2 className='font-iceland'>{projectsWithoutHighlighted.length} Projets</h2>
+                                <h2 className='font-iceland'>{projectsWithoutHighlighted.length} Projets personnel</h2>
                             </div>
                             <ul className='columns-sm gap-2'>
-                                {projectsWithoutHighlighted.map(({
-                                    name,
-                                    description,
-                                    html_url,
-                                    homepage,
-                                    language,
-                                    topics,
-                                    stargazers_count,
-                                    created_at
-                                }, idx) => (
+                                {projectsWithoutHighlighted.map((project, idx) => (
                                     <li key={idx} className='first:mt-0 mt-2 break-inside-avoid'>
                                         <ProjectCard
-                                            title={name}
-                                            description={description}
-                                            language={language}
-                                            githubLink={html_url}
-                                            href={homepage}
-                                            tags={topics}
-                                            starsCount={stargazers_count}
-                                            createdAt={created_at}
+                                            {...project}
+                                            title={project.name}
+                                            githubLink={project.html_url}
+                                            href={project.homepage}
+                                            starsCount={project.stargazers_count}
+                                            createdAt={project.created_at}
+                                            isFork={project.fork}
                                         />
                                     </li>
                                 ))}
