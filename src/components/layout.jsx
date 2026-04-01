@@ -78,10 +78,6 @@ const UserAvatar = ({ canLoadAvatar, themeId }) => {
 
 const links = [
 	{
-		title: 'à propos',
-		href: '/'
-	},
-	{
 		title: 'Compétences',
 		href: '/skills'
 	},
@@ -92,7 +88,11 @@ const links = [
 	{
 		title: 'logs',
 		href: '/logs'
-	}
+	},
+	{
+		title: 'à propos',
+		href: '/about'
+	},
 ];
 
 export default function Layout({ children }) {
@@ -121,7 +121,7 @@ export default function Layout({ children }) {
 	const projects = allProjects
 		.filter(({ description, language, updated_at, showOnCV, fork }) => showOnCV || (description && language && updated_at && !fork))
 		.sort((a, b) => {
-			if (a.showOnCV) {
+			if (b.showOnCV) {
 				return 1;
 			}
 
@@ -139,7 +139,7 @@ export default function Layout({ children }) {
 			skill.isNeeded = skillsNeeded.includes(name);
 
 			if (name === 'react-native') {
-				name = 'RN'
+				name = 'React-N'
 			}
 
 			return {
@@ -159,10 +159,12 @@ export default function Layout({ children }) {
 				projects={projects}
 				accentColor={currentTheme}
 				seasonName={currentSeason.name}
+				themeType={themeType}
 				themeId={themeType === 'season' ? selectedSeason : themeType}
 				mode={document.documentElement.getAttribute('data-theme')}
 				showAvatarCV={(query.showAvatarCV ?? 'true') === 'true'}
 				avatarURL={localStorage.getItem('custom-avatar')}
+				phoneNumber={query.phoneNumber}
 			/>
 		).toBlob();
 
@@ -170,7 +172,7 @@ export default function Layout({ children }) {
 
 		const link = document.createElement('a');
 		link.href = url;
-		link.download = 'Lenny - CV.pdf';
+		link.download = 'Lenny LQS - CV.pdf';
 		document.body.appendChild(link);
 		link.click();
 

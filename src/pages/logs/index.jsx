@@ -31,7 +31,7 @@ export default function Home() {
                                                 </div>
                                                 <p className='text-sm dark:text-white/90'>{new Date(startAt).toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })} - {endAt ? new Date(endAt).toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' }) : 'Maintenant'}</p>
                                             </div>
-                                            <p className='dark:text-white/45 not-dark:text-black/60'>{description}</p>
+                                            <p className='dark:text-white/75 text-black/60'>{description}</p>
                                         </div>
                                     </div>
                                 </li>
@@ -45,21 +45,26 @@ export default function Home() {
                     </div>
                     <div className='flex flex-wrap gap-4'>
                         <ul className='columns-sm gap-2'>
-                            {userInfo.diplomas.map(({ title, startAt, endAt, degrees, school }, idx) => (
+                             {userInfo.diplomas.map(({ title, description, startAt, endAt, degrees, school }, idx) => (
                                 <li key={idx} className='first:mt-0 mt-2 break-inside-avoid'>
                                     <div className='bevel-tr dark:bg-accent/30 bg-accent/13 p-0.5' key={idx}>
                                         <div className='bevel-tr p-4 flex flex-col gap-1 dark:bg-black/65 not-dark:bg-white/50'>
                                             <div className='flex flex-col gap-1'>
                                                 <div className='flex gap-1'>
                                                     <FaGraduationCap className='text-accent' size={32} />
-                                                    <hgroup>
+                                                    <div>
                                                         <h4 className='font-bigShouldersDisplay text-2xl text-accent uppercase font-bold'>{title}</h4>
-                                                        <p className='text-sm dark:text-white/60'>{degrees}</p>
-                                                    </hgroup>
+                                                        <div className='flex flex-wrap gap-1 items-center dark:text-white/90'>
+                                                            {school && <p>École {school}</p>}
+                                                            <p className='text-sm'>{new Date(startAt).toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })} - {endAt ? new Date(endAt).toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' }) : 'Maintenant'}</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <p className='text-sm dark:text-white/90'>{new Date(startAt).toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })} - {endAt ? new Date(endAt).toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' }) : 'Maintenant'}</p>
                                             </div>
-                                            {school && <p>À {school}</p>}
+                                            <div className='flex flex-col'>
+                                                <p className='text-xl dark:text-white'>{degrees}</p>
+                                                <p className='dark:text-white/75 text-black/60'>{description}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </li>

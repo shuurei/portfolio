@@ -1,4 +1,5 @@
-import { SiGithub, SiLinkedin } from 'react-icons/si'
+import { SiGithub } from 'react-icons/si'
+import { GrLinkedin } from 'react-icons/gr'
 
 const userInfo = {
     githubId: 73862313,
@@ -8,9 +9,9 @@ const userInfo = {
     email: 'lenny.lqs.pro@gmail.com',
     network: [
         {
-            icon: SiLinkedin,
+            icon: GrLinkedin,
             name: 'LinkedIn',
-            link: 'https://www.linkedin.com/in/llenny'
+            link: 'https://www.linkedin.com/in/lennylqs'
         },
         {
             icon: SiGithub,
@@ -21,13 +22,13 @@ const userInfo = {
     experiences: [
         {
             title: 'Apprenti Développeur Full-Stack',
-            description: 'Développement de " NeoCampus " la plate-forme collaborative des étudiants et enseignants de l’École de Design de Nantes Atlantique.',
+            description: 'Développement et maintenance de \" NeoCampus \", la plateforme collaborative des étudiants et enseignants de l\'École de Design Nantes Atlantique. Participation à la conception de nouvelles fonctionnalités, à l\'amélioration de l\'interface et au développement full-stack de l\'application',
             startAt: '02/20/2024',
             endAt: '01/15/2025',
         },
         {
             title: 'Service Civique - Ambassadeur du numérique',
-            description: "Animation d’ateliers numériques pour initier au web, renforcer les compétences informatiques, et promouvoir le lien intergénérationnel autour des outils numériques.",
+            description: "Animation d'ateliers numériques pour initier au web, renforcer les compétences informatiques, et promouvoir le lien intergénérationnel autour des outils numériques.",
             startAt: '10/01/2022',
             endAt: '06/01/2023',
         },
@@ -35,6 +36,7 @@ const userInfo = {
     diplomas: [
         {
             title: "Concepteur Développeur D'application",
+            description: "Formation orientée développement full-stack et conception d'applications, avec une approche centrée sur l'architecture logicielle, les bases de données, les API et les interfaces web. Réalisation de projets concrets en équipe et en autonomie autour de technologies comme JavaScript, TypeScript, React, Node.js et SQL",
             degrees: 'Bac +3',
             school: 'ARINFO',
             startAt: '09/25/2023',
