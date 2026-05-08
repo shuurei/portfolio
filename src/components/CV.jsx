@@ -7,7 +7,152 @@ import { FaCar, FaPhoneAlt } from 'react-icons/fa'
 
 import userInfo from '@/data/userInfo'
 
-const IconsPDF = ({ icon, color = 'black', size = 14 }) => {
+// Data
+const getContactItems = ({ phoneNumber, github, linkedIn }) => {
+    const items = [
+        {
+            icon: MdEmail,
+            value: userInfo.email,
+            href: `mailto:${userInfo.email}`,
+        },
+        {
+            icon: MdMap,
+            value: userInfo.localisation,
+            href: 'https://maps.app.goo.gl/s5o2JCjBUD2J7c5T6'
+        },
+        {
+            icon: FaCar,
+            value: 'Permis B en cours',
+        },
+    ]
+
+    if (phoneNumber) {
+        items.unshift({
+            icon: FaPhoneAlt,
+            value: phoneNumber.replace(/(\d{2})(?=\d)/g, '$1 '),
+            href: `tel:${phoneNumber}`,
+        });
+    }
+
+    if (github) {
+        items.push({
+            icon: GrGithub,
+            value: `github.com/${github.username}`,
+            href: github.link,
+        });
+    }
+
+    if (linkedIn) {
+        items.push({
+            icon: GrLinkedin,
+            value: `linkedin.com/in/${linkedIn.username}`,
+            href: linkedIn.link,
+        });
+    }
+
+    return items;
+}
+
+const projects = [
+    {
+        type: 'Bot Discord',
+        title: 'Erelya',
+        stack: ['TypeScript', 'Prisma', 'NodeJs', 'MySQL'],
+        points: [
+            'Déploiement du projet avec Docker',
+            "Conception d'un bot Discord modulaire et Open-Source",
+            "Mise en place d'une base de données avec Prisma et MySQL"
+        ]
+    },
+    {
+        type: 'Site Fictif',
+        title: "Minim'Ow Bar",
+        stack: ['TypeScript', 'React', 'Tailwind'],
+        points: [
+            "Conception d'un site vitrine fictif pour un bar à chats",
+            "Création d'une interface moderne et responsive avec React",
+            "Développement de pages dédiées au menu, aux réservations et aux chats"
+        ]
+    },
+    {
+        type: 'Réseau Social',
+        title: "Lara Weeb",
+        stack: ['Laravel', 'VueJs', 'Pinia', 'MySQL'],
+        points: [
+            "Gestion des utilisateurs, publications et interactions",
+            "Conception d'un réseau social autour de la culture manga",
+            "Développement d'une interface dynamique avec VueJs et Pinia"
+        ]
+    }
+];
+
+const workExperiences = [
+    {
+        type: 'Alternance',
+        title: 'Développeur Full-Stack',
+        location: "L'École de design Nantes Atlantique",
+        startAt: '2024',
+        endAt: '2025',
+        points: [
+            'Développement Full-Stack avec Symfony et VueJs',
+            'Travail collaboratif avec Git dans un environnement Ubuntu',
+            "Développement d'API et gestion des échanges client / serveur"
+        ]
+    },
+    {
+        type: 'Service Civique',
+        title: 'Ambassadeur du numérique',
+        location: "UnisCité Nantes",
+        startAt: '2022',
+        endAt: '2023',
+        points: [
+            'Gestion de groupe et prise de parole en public',
+            "Organisation d'ateliers et de supports pédagogiques",
+            'Adaptation aux différents niveaux de maîtrise du numérique'
+        ]
+    }
+];
+
+const educations = [
+    {
+        title: 'Mastère Développement Full-Stack',
+        degree: 'Bac +5',
+        location: 'Sup De Vinci, Nantes',
+        startAt: "À partir d'Octobre 2026",
+        endAt: '2028'
+    },
+    {
+        title: "Concepteur Développeur d'Application",
+        degree: 'Bac +3',
+        location: 'ARINFO, Nantes',
+        startAt: '2023',
+        endAt: '2024'
+    }
+];
+
+const skills = [
+    'JavaScript',
+    'TypeScript',
+    'React',
+    'React-Native',
+    'VueJs',
+    'Tailwind',
+    'Linux',
+    'JAVA',
+    'Python',
+    'Docker',
+    'CI/CD',
+    'Git / Github',
+];
+
+const softSkills = [
+    'Autonome',
+    'Rigoureux',
+    'Analytique',
+];
+
+// Helper
+const IconsPDF = ({ icon, color = 'black', size = 12 }) => {
     const svg = icon().props.children;
 
     if (svg.length < 0) {
@@ -23,234 +168,222 @@ const IconsPDF = ({ icon, color = 'black', size = 14 }) => {
     );
 }
 
+// Components
+const tw = createTw({
+    fontSize: {
+        xs: 8,
+        xsm: 9,
+        sm: 10,
+        smb: 11,
+        base: 12,
+        md: 13,
+        lg: 14,
+        xl: 15,
+        '2xl': 16,
+        '3xl': 17,
+        '4xl': 18,
+        '5xl': 19,
+        '6xl': 20
+    }
+});
+
+const Divider = () => {
+    return <View style={tw('w-3/4 h-0.5 self-center bg-black my-4')} />
+}
+
+const Section = ({ titleSize, title, children }) => {
+    return (
+        <View style={tw('flex gap-1')}>
+            <Text style={[tw(`text-${titleSize ?? 'md'} font-semibold uppercase mb-0.5`), { color: '#5288f2' }]}>{title}</Text>
+            {children}
+        </View>
+    );
+}
+
+const WorkExperienceItem = ({ type, title, location, startAt, endAt, points }) => {
+    return (
+        <View style={tw('flex gap-2')}>
+            <View>
+                <Text style={[tw('text-md font-semibold mb-0.5')]}>{title}</Text>
+                <View style={[tw('text-sm flex-row gap-1 font-semibold italic')]}>
+                    <Text>{startAt} - {endAt}</Text>
+                    <Text>• {location}</Text>
+                    <Text>• {type}</Text>
+                </View>
+            </View>
+            <View style={[tw('flex gap-1.5 text-sm')]}>
+                {points.map((point, idx) => (
+                    <Text key={idx}>• {point}</Text>
+                ))}
+            </View>
+        </View>
+    );
+}
+
+const ProjectItem = ({ type, title, stack, points }) => {
+    return (
+        <View style={tw('flex gap-2')}>
+            <View>
+                <Text style={[tw('text-md font-semibold mb-0.5')]}>{title}</Text>
+                <View style={[tw('flex-row gap-1 italic font-semibold text-sm')]}>
+                    <Text>{type}</Text>
+                    <Text style={[tw('flex-row')]}>
+                        •
+                        {stack.map((stack, idx) => (
+                            <Text key={idx}>
+                                {idx > 0 ? ' / ' : ' '}
+                                {stack}
+                            </Text>
+                        ))}
+                    </Text>
+                </View>
+            </View>
+            <View style={[tw('flex gap-1.5 text-sm')]}>
+                {points.map((point, idx) => (
+                    <Text key={idx}>• {point}</Text>
+                ))}
+            </View>
+        </View>
+    );
+}
+
+const EducationItem = ({ title, degree, location, startAt, endAt }) => {
+    return (
+        <View>
+            <Text style={[tw('text-md font-semibold mb-1')]}>{title}</Text>
+            <View style={[tw('flex-row gap-1 italic text-sm mb-1')]}>
+                <Text>{degree}</Text>
+                <Text>• {location}</Text>
+                <Text>• {startAt} - {endAt}</Text>
+            </View>
+        </View>
+    );
+}
+
 const CV = (props) => {
     const {
         fullname,
         avatarURL,
-        phoneNumber
+        phoneNumber,
+        github,
+        linkedIn
     } = props;
-
-    const tw = createTw({
-        fontSize: {
-            xs: 10,
-            xsm: 11,
-            sm: 12,
-            smb: 13,
-            base: 14,
-            md: 15,
-            lg: 16,
-            xl: 20,
-        },
-    });
-
-    const linkedIn = userInfo.network.find((network) => network.name === 'LinkedIn');
 
     return (
         <Document>
-            <Page size='A4' wrap={false} style={[tw('relative'), { flexDirection: 'column', height: '100%' }]}>
+            <Page size='A4' wrap={false} style={[tw('relative flex text-base'), { height: '100%' }]}>
                 <View style={[tw('flex-row')]}>
                     {/* Left Side */}
-                    <View style={[tw('p-6 h-full'), { paddingTop: 150, backgroundColor: '#f2f2f2', width: '35%' }]}>
-                        <Text style={[tw('text-xl')]}>Lenny {fullname}</Text>
-                        <View style={[tw('w-full h-0.5 bg-black mt-2 mb-2')]} />
+                    <View style={[tw('flex justify-between p-6 h-full'), { paddingTop: 150, backgroundColor: '#f2f2f2', width: '35%' }]}>
+                        <View>
+                            <Text style={tw('text-3xl font-semibold self-center')}>Lenny {fullname}</Text>
+                            <Divider />
+                        </View>
+
+
                         {/* Contact */}
-                        <View style={[tw('flex gap-1')]}>
-                            <Text style={[tw('text-md uppercase font-semibold mb-1'), { color: '#5288f2' }]}>Coordonnées</Text>
-                            {phoneNumber && (
-                                <View style={[tw('flex-row items-center gap-2 text-xsm')]}>
-                                    <IconsPDF icon={FaPhoneAlt} />
-                                    <Link style={tw('text-black no-underline')} src={`tel:${phoneNumber}`}>{phoneNumber.replace(/(\d{2})(?=\d)/g, '$1 ')}</Link>
-                                </View>
-                            )}
-                            <View style={[tw('flex-row items-center gap-2 text-xsm')]}>
-                                <IconsPDF icon={MdEmail} />
-                                <Link style={tw('text-black no-underline')} src={`mailto:${userInfo.email}`}>{userInfo.email}</Link>
+                        <Section title='Coordonnées'>
+                            <View style={tw('flex gap-2 text-smb')}>
+                                {getContactItems({ phoneNumber, github, linkedIn }).map((item, idx) => (
+                                    <View key={idx} style={tw('flex-row items-center gap-2')}>
+                                        <IconsPDF icon={item.icon} />
+
+                                        {item.href ? (
+                                            <Link style={tw('text-black no-underline')} src={item.href}>{item.value}</Link>
+                                        ) : (
+                                            <Text>{item.value}</Text>
+                                        )}
+                                    </View>
+                                ))}
                             </View>
-                            <View style={[tw('flex-row items-center gap-2 text-xsm')]}>
-                                <IconsPDF icon={MdMap} />
-                                <Text>{userInfo.localisation}</Text>
-                            </View>
-                            <View style={[tw('flex-row items-center gap-2 text-xsm')]}>
-                                <IconsPDF icon={GrGithub} />
-                                <Link style={tw('text-black no-underline')} src={`https://github.com/shuurei`}>github.com/shuurei</Link>
-                            </View>
-                            {linkedIn && (
-                                <View style={[tw('flex-row items-center gap-2 text-xsm')]}>
-                                    <IconsPDF icon={GrLinkedin} />
-                                    <Link style={tw('text-black no-underline')} src={linkedIn.link}>linkedin.com/in/{linkedIn.username}</Link>
-                                </View>
-                            )}
-                            <View style={[tw('flex-row items-center gap-2 text-xsm')]}>
-                                <IconsPDF icon={FaCar} />
-                                <Text>Permis B en cours</Text>
-                            </View>
-                        </View>
-                        <View style={[tw('w-full h-0.5 bg-black mb-2 mt-2')]} />
+                        </Section>
+
                         {/* Skills */}
-                        <View style={[tw('flex gap-1')]}>
-                            <Text style={[tw('text-md uppercase font-semibold'), { color: '#5288f2' }]}>Compétences</Text>
-                            <View>
-                                <Text style={[tw('text-sm uppercase font-semibold mb-0.5'), { color: '#8499c4' }]}>langages</Text>
-                                <View style={[tw('flex gap-1 text-xsm')]}>
-                                    <Text>• TypeScript (Avancé)</Text>
-                                    <Text>• JavaScript (Avancé)</Text>
-                                    <Text>• Python (Bases)</Text>
-                                    <Text>• JAVA (Bases)</Text>
-                                </View>
+                        <Section title='Compétences'>
+                            <View style={tw('flex gap-2 text-smb')}>
+                                {skills.map((skill, idx) => (
+                                    <Text key={idx}>• {skill}</Text>
+                                ))}
                             </View>
-                            <View>
-                                <Text style={[tw('text-sm uppercase font-semibold mb-0.5'), { color: '#8499c4' }]}>Bibliothèques</Text>
-                                <View style={[tw('text-xsm flex gap-1')]}>
-                                    <Text>• React (Avancé)</Text>
-                                    <Text>• React-Native (Avancé)</Text>
-                                    <Text>• Tailwind (Avancé)</Text>
-                                    <Text>• VueJs (Intermédiaire)</Text>
-                                </View>
+                        </Section>
+
+                        {/* Soft Skills */}
+                        <Section title='Qualités'>
+                            <View style={tw('flex gap-2 text-smb')}>
+                                {softSkills.map((skill) => (
+                                    <Text key={skill}>• {skill}</Text>
+                                ))}
                             </View>
-                            <View>
-                                <Text style={[tw('text-sm uppercase font-semibold mb-0.5'), { color: '#8499c4' }]}>Techniques</Text>
-                                <View style={[tw('text-xsm flex gap-1')]}>
-                                    <Text>• API REST (Avancé)</Text>
-                                    <Text>• Linux (Intermédiaire)</Text>
-                                    <Text>• Docker (Bases)</Text>
-                                    <Text>• CI/CD (Bases)</Text>
-                                    <Text>• Git / Github (Bases)</Text>
-                                </View>
-                            </View>
-                            <View>
-                                <Text style={[tw('text-sm uppercase font-semibold mb-0.5'), { color: '#8499c4' }]}>professionnelles</Text>
-                                <View style={[tw('text-xsm flex gap-1')]}>
-                                    <Text>• Autonome</Text>
-                                    <Text>• Curieux</Text>
-                                    <Text>• Rigoureux</Text>
-                                    <Text>• Persévérant</Text>
-                                    <Text>• Analytique</Text>
-                                    <Text>• Adaptable</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={[tw('w-full h-0.5 bg-black mb-2 mt-2')]} />
+                        </Section>
+
                         {/* Languages */}
-                        <View style={[tw('flex gap-1')]}>
-                            <Text style={[tw('text-md uppercase font-semibold'), { color: '#5288f2' }]}>Langues</Text>
-                            <View style={[tw('text-sm flex gap-1')]}>
+                        <Section title='Langues'>
+                            <View style={[tw('flex gap-2 text-smb')]}>
                                 <Text>• Français - Maternelle</Text>
                                 <Text>• Anglais - B1</Text>
                             </View>
-                        </View>
-                        <View style={[tw('w-full h-0.5 bg-black mb-2 mt-2')]} />
+                        </Section>
+
                         {/* Hobbies */}
-                        <View style={[tw('flex gap-1')]}>
-                            <Text style={[tw('text-md uppercase font-semibold'), { color: '#5288f2' }]}>Centres d'intérêt</Text>
-                            <View style={[tw('text-sm flex gap-1')]}>
+                        <Section title="Centres d'intérêt">
+                            <View style={[tw('flex gap-2 text-smb')]}>
                                 <Text>• Gaming</Text>
                                 <Text>• Callisthénie</Text>
                                 <Text>• Anime / Manhwa</Text>
                             </View>
-                        </View>
+                        </Section>
                     </View>
 
-                    {/* Right Side */}
-                    <View style={[tw('flex-1 p-8'), { paddingTop: 120 }]}>
-                        <Image
-                            style={{
-                                alignSelf: 'flex-start',
-                                height: 40,
-                                objectFit: 'contain',
-                            }}
-                            src={`${process.env.NODE_ENV === 'production' ? '/portfolio' : ''}/supdevinciLogo.png`}
-                        />
+                    {/* Main */}
+                    <View style={[tw('flex-1 flex justify-between py-4 px-8'), { paddingTop: 120 }]}>
                         {/* Bio */}
-                        <View style={[tw('w-full h-0.5 bg-black mb-2 mt-2')]} />
-                        <Text style={[tw('text-sm')]}>Titulaire du diplôme de Concepteur Développeur d’Applications. J'ai acquis plusieurs mois d’expérience en alternance. Passionné par le développement web et logiciel, je recherche une alternance à partir de juillet 2026.</Text>
-                        <View style={[tw('w-full h-0.5 bg-black mb-2 mt-2')]} />
-                        {/* Pro */}
-                        <Text style={[tw('text-md uppercase font-semibold mb-1'), { color: '#5288f2' }]}>Expériences professionnelles</Text>
-                        <View style={[tw('flex gap-2')]}>
-                            <View>
-                                <Text style={[tw('text-smb font-semibold')]}>Développeur Full-Stack</Text>
-                                <View style={[tw('flex-row gap-1 text-xsm mb-1')]}>
-                                    <Text style={[tw('italic')]}>Alternance - L'École de design Nantes Atlantique</Text>
-                                    <Text style={[tw('text-gray-500')]}>| 2024 - 2025</Text>
-                                </View>
-                                <View style={[tw('flex gap-1 text-sm')]}>
-                                    <Text>• Développement Full-Stack avec Symfony et VueJs</Text>
-                                    <Text>• Conception et intégration de nouvelles fonctionnalités</Text>
-                                    <Text>• Travail collaboratif avec Git dans un environnement Ubuntu</Text>
-                                    <Text>• Développement d'API et gestion des échanges client / serveur</Text>
-                                </View>
-                            </View>
-                            <View>
-                                <Text style={[tw('text-smb font-semibold')]}>Ambassadeur du numérique</Text>
-                                <View style={[tw('flex-row gap-1 text-xsm mb-1')]}>
-                                    <Text style={[tw('italic')]}>Service Civique - UnisCité Nantes</Text>
-                                    <Text style={[tw('text-gray-500')]}>| 2022 - 2023</Text>
-                                </View>
-                                <View style={[tw('flex gap-1 text-sm')]}>
-                                    <Text>• Gestion de groupe et prise de parole en public</Text>
-                                    <Text>• Organisation d'ateliers et de supports pédagogiques</Text>
-                                    <Text>• Adaptation aux différents niveaux de maîtrise du numérique</Text>
-                                </View>
-                            </View>
+                        <View>
+                            <Image
+                                style={{
+                                    height: 36,
+                                    alignSelf: 'flex-start',
+                                    objectFit: 'contain',
+                                }}
+                                src={`${process.env.NODE_ENV === 'production' ? '/portfolio' : ''}/supdevinciLogo.png`}
+                            />
+                            <Divider />
+                            <Text style={[tw('text-sm font-semibold')]}>
+                                Titulaire du diplôme de Concepteur Développpeur d'Application, je souhaite me spécialiser en développent mes compétences autant bien dans le front que dans le back.
+                                Je recherche une alternance à partir de juillet 2026.
+                            </Text>
+                            <Divider />
                         </View>
-                        <View style={[tw('w-full h-0.5 bg-black mb-2 mt-2')]} />
+
+                        {/* Work Experiences */}
+                        <Section titleSize='lg' title='Expériences professionnelles'>
+                            <View style={[tw('flex gap-3')]}>
+                                {workExperiences.map((data, idx) => (
+                                    <WorkExperienceItem key={idx} {...data} />
+                                ))}
+                            </View>
+                        </Section>
+
+                        <Divider />
+
                         {/* Projects */}
-                        <Text style={[tw('text-md uppercase font-semibold mb-1'), { color: '#5288f2' }]}>Projets Personnels</Text>
-                        <View style={[tw('flex gap-2')]}>
-                            <View>
-                                <Text style={[tw('text-smb font-semibold mb-1')]}>Erelya</Text>
-                                <View style={[tw('flex-row gap-1 text-xsm mb-1')]}>
-                                    <Text>Bot Discord |</Text>
-                                    <Text style={[tw('font-semibold italic')]}>TypeScript / Prisma / NodeJs / MySQL</Text>
-                                </View>
-                                <View style={[tw('flex gap-1 text-sm')]}>
-                                    <Text>• Déploiement du projet avec Docker</Text>
-                                    <Text>• Conception d'un bot Discord modulaire et Open-Source</Text>
-                                    <Text>• Mise en place d'une base de données avec Prisma et MySQL</Text>
-                                </View>
+                        <Section titleSize='lg' title='Projets Personnels'>
+                            <View style={[tw('flex gap-3')]}>
+                                {projects.map((data, idx) => (
+                                    <ProjectItem key={idx} {...data} />
+                                ))}
                             </View>
-                            <View>
-                                <Text style={[tw('text-smb font-semibold mb-1')]}>Minim'Ow Bar</Text>
-                                <View style={[tw('flex-row gap-1 text-xsm mb-1')]}>
-                                    <Text>Site Fictif |</Text>
-                                    <Text style={[tw('font-semibold italic')]}>TypeScript / React / Tailwind</Text>
-                                </View>
-                                <View style={[tw('flex gap-1 text-sm')]}>
-                                    <Text>• Conception d'un site vitrine fictif pour un bar à chats</Text>
-                                    <Text>• Création d'une interface moderne et responsive avec React</Text>
-                                    <Text>• Développement de pages dédiées au menu, aux réservations et aux chats</Text>
-                                </View>
+                        </Section>
+
+                        <Divider />
+
+                        {/* Educations */}
+                        <Section titleSize='lg' title='Diplômes'>
+                            <View style={[tw('flex gap-3')]}>
+                                {educations.map((data, idx) => (
+                                    <EducationItem key={idx} {...data} />
+                                ))}
                             </View>
-                            <View>
-                                <Text style={[tw('text-smb font-semibold mb-1')]}>Lara Weeb</Text>
-                                <View style={[tw('flex-row gap-1 text-xsm mb-1')]}>
-                                    <Text>Réseau Social |</Text>
-                                    <Text style={[tw('font-semibold italic')]}>Laravel / VueJs / Pinia / MySQL</Text>
-                                </View>
-                                <View style={[tw('flex gap-1 text-sm')]}>
-                                    <Text>• Gestion des utilisateurs, publications et interactions</Text>
-                                    <Text>• Conception d'un réseau social autour de la culture manga</Text>
-                                    <Text>• Développement d'une interface dynamique avec VueJs et Pinia</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={[tw('w-full h-0.5 bg-black mb-2 mt-2')]} />
-                        {/* Diplomes */}
-                        <Text style={[tw('text-md uppercase font-semibold mb-1'), { color: '#5288f2' }]}>Diplôme</Text>
-                        <View>
-                            <Text style={[tw('text-smb font-semibold mb-0.5')]}>Mastère Développement Full-Stack</Text>
-                            <View style={[tw('flex-row gap-1 text-xsm mb-1')]}>
-                                <Text>Bac +5 - Sup De Vinci, Nantes</Text>
-                                <Text style={[tw('text-gray-500')]}>| À partir d'Octobre 2026 - 2028</Text>
-                            </View>
-                        </View>
-                        <View>
-                            <Text style={[tw('text-smb font-semibold mb-0.5')]}>Concepteur Développeur d'Application</Text>
-                            <View style={[tw('flex-row gap-1 text-xsm mb-1')]}>
-                                <Text>Bac +3 - ARINFO, Nantes</Text>
-                                <Text style={[tw('text-gray-500')]}>| 2023 - 2024</Text>
-                            </View>
-                        </View>
+                        </Section>
                     </View>
                 </View>
 
@@ -281,22 +414,21 @@ const CV = (props) => {
                         style={{
                             position: 'absolute',
                             top: 15,
-                            left: 38,
+                            left: 38.5,
                             width: 128,
                             height: 128,
+                            borderRadius: 128
                         }}
                     />
                 )}
 
                 {/* Title */}
-                <View style={[tw('absolute top-8 right-6 bottom-0 flex uppercase')]}>
-                    <Text style={[tw('text-white font-bold')]}>
-                        Mastère Développeur Full-Stack
-                    </Text>
-                    <Text style={[tw('text-white font-bold self-end')]}>
-                        En alternance
-                    </Text>
-                    <Text style={[tw('text-xs text-white font-bold text-right self-end mt-0.5'), { color: '#eed9ff' }]}>
+                <View style={tw('flex absolute top-8 right-6 bottom-0 text-white font-bold uppercase')}>
+                    <View style={tw('flex text-6xl mb-1')}>
+                        <Text>Développeur Full-Stack</Text>
+                        <Text style={tw('self-end')}>En alternance</Text>
+                    </View>
+                    <Text style={[tw('text-sm self-end'), { color: '#eed9ff' }]}>
                         3 semaines entreprise / 1 semaine école
                     </Text>
                 </View>
