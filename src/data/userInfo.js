@@ -11,6 +11,7 @@ const userInfo = {
         {
             icon: GrLinkedin,
             name: 'LinkedIn',
+            username: 'lennylqs',
             link: 'https://www.linkedin.com/in/lennylqs'
         },
         {
@@ -21,13 +22,15 @@ const userInfo = {
     ],
     experiences: [
         {
-            title: 'Apprenti Développeur Full-Stack',
+            type: 'Alternance',
+            title: 'Développeur Full-Stack',
             description: 'Développement et maintenance de \" NeoCampus \", la plateforme collaborative des étudiants et enseignants de l\'École de Design Nantes Atlantique. Participation à la conception de nouvelles fonctionnalités, à l\'amélioration de l\'interface et au développement full-stack de l\'application',
             startAt: '02/20/2024',
             endAt: '01/15/2025',
         },
         {
-            title: 'Service Civique - Ambassadeur du numérique',
+            type: 'Service Civique',
+            title: 'Ambassadeur du numérique',
             description: "Animation d'ateliers numériques pour initier au web, renforcer les compétences informatiques, et promouvoir le lien intergénérationnel autour des outils numériques.",
             startAt: '10/01/2022',
             endAt: '06/01/2023',
