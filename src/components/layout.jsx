@@ -34,6 +34,7 @@ import { useSearchParams } from 'next/navigation'
 
 import OldCV from '@/components/OldCV'
 import CV from '@/components/CV'
+import { MdBugReport } from 'react-icons/md'
 
 const UserAvatar = ({ canLoadAvatar, themeId }) => {
 	const [avatar, setAvatar] = useState(userInfo.avatarPath(themeId));
@@ -161,6 +162,8 @@ export default function Layout({ children }) {
 			phoneNumber
 		} = query;
 
+		console.log(profile)
+
 		const blob = await pdf(
 			CVType === 'old'
 				? (
@@ -183,6 +186,11 @@ export default function Layout({ children }) {
 						fullname={fullname}
 						phoneNumber={phoneNumber}
 						avatarURL={localStorage.getItem('custom-avatar')}
+						linkedIn={userInfo.network.find((network) => network.name === 'LinkedIn')}
+						github={profile && {
+							username: profile.login,
+							link: profile.html_url
+						}}
 					/>
 				)
 		).toBlob();
@@ -267,6 +275,12 @@ export default function Layout({ children }) {
 									<Description />
 								</div>
 							</Button>
+							{process.env.NODE_ENV !== 'production' && (<Link
+								className='flex items-center justify-center cursor-pointer border-2 px-2 py-1 border-accent text-accent text-start text-xl uppercase hover:text-black hover:bg-accent'
+								href={'/debug/cv'}
+							>
+								<MdBugReport size={24} />
+							</Link>)}
 						</div>
 					</div>
 
