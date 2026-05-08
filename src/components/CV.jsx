@@ -281,7 +281,7 @@ const CV = (props) => {
                         style={{
                             position: 'absolute',
                             top: 15,
-                            left: 20,
+                            left: 38,
                             width: 128,
                             height: 128,
                         }}
