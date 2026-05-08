@@ -1,6 +1,5 @@
 import Button from '@/components/common/button'
 import Box from '@/components/box'
-import CV from '@/components/CV'
 
 import {
 	Description,
@@ -32,6 +31,9 @@ import { useEffect, useMemo, useState } from 'react'
 
 import userSkills from '@/data/userSkills'
 import { useSearchParams } from 'next/navigation'
+
+import OldCV from '@/components/OldCV'
+import CV from '@/components/CV'
 
 const UserAvatar = ({ canLoadAvatar, themeId }) => {
 	const [avatar, setAvatar] = useState(userInfo.avatarPath(themeId));
@@ -153,26 +155,43 @@ export default function Layout({ children }) {
 	const downloadPDF = async () => {
 		if (loading) return;
 
+		const {
+			CVType,
+			fullname = 'LQS',
+			phoneNumber
+		} = query;
+
 		const blob = await pdf(
-			<CV
-				skills={skills}
-				projects={projects}
-				accentColor={currentTheme}
-				seasonName={currentSeason.name}
-				themeType={themeType}
-				themeId={themeType === 'season' ? selectedSeason : themeType}
-				mode={document.documentElement.getAttribute('data-theme')}
-				showAvatarCV={(query.showAvatarCV ?? 'true') === 'true'}
-				avatarURL={localStorage.getItem('custom-avatar')}
-				phoneNumber={query.phoneNumber}
-			/>
+			CVType === 'old'
+				? (
+					<OldCV
+						fullname={fullname}
+						skills={skills}
+						projects={projects}
+						accentColor={currentTheme}
+						seasonName={currentSeason.name}
+						themeType={themeType}
+						themeId={themeType === 'season' ? selectedSeason : themeType}
+						mode={document.documentElement.getAttribute('data-theme')}
+						showAvatarCV={(query.showAvatarCV ?? 'true') === 'true'}
+						avatarURL={localStorage.getItem('custom-avatar')}
+						phoneNumber={phoneNumber}
+					/>
+				)
+				: (
+					<CV
+						fullname={fullname}
+						phoneNumber={phoneNumber}
+						avatarURL={localStorage.getItem('custom-avatar')}
+					/>
+				)
 		).toBlob();
 
 		const url = URL.createObjectURL(blob);
 
 		const link = document.createElement('a');
 		link.href = url;
-		link.download = 'Lenny LQS - CV.pdf';
+		link.download = `Lenny ${fullname} - CV.pdf`;
 		document.body.appendChild(link);
 		link.click();
 

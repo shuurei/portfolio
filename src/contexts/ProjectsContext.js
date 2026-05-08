@@ -24,7 +24,6 @@ export const ProjectsProvider = ({ children }) => {
             .filter((repo) => repo.name !== profile?.login)
             .map((project) => {
                 project.showOnCV = project.topics && project.topics.includes('show-on-cv');
-                console.log(project.showOnCV, project.name)
                 return project
             });
     }, [repos]);
