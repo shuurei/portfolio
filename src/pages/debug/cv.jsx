@@ -28,7 +28,7 @@ export default function DebugCV() {
                 className='w-full h-full'
             >
                 <CV
-                    fullname='LOQUAIS'
+                    fullname='LQS'
                     phoneNumber='0780376980'
                     avatarURL={avatarURL}
                     linkedIn={userInfo.network.find((network) => network.name === 'LinkedIn')}

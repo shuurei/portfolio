@@ -3,7 +3,7 @@ import { createTw } from 'react-pdf-tailwind'
 
 import { MdEmail, MdMap } from 'react-icons/md'
 import { GrGithub, GrLinkedin } from 'react-icons/gr'
-import { FaCar, FaPhoneAlt } from 'react-icons/fa'
+import { FaCar, FaCode, FaPhoneAlt } from 'react-icons/fa'
 
 import userInfo from '@/data/userInfo'
 
@@ -34,19 +34,26 @@ const getContactItems = ({ phoneNumber, github, linkedIn }) => {
         });
     }
 
+    if (linkedIn) {
+        items.push({
+            icon: GrLinkedin,
+            value: `linkedin.com/in/${linkedIn.username}`,
+            href: linkedIn.link,
+        });
+    }
+
     if (github) {
         items.push({
             icon: GrGithub,
             value: `github.com/${github.username}`,
             href: github.link,
         });
-    }
 
-    if (linkedIn) {
+        const portfolioValue = `${github.username}.github.io/portfolio`
         items.push({
-            icon: GrLinkedin,
-            value: `linkedin.com/in/${linkedIn.username}`,
-            href: linkedIn.link,
+            icon: FaCode,
+            value: portfolioValue,
+            href: `https://${portfolioValue}`
         });
     }
 
@@ -348,7 +355,7 @@ const CV = (props) => {
                             />
                             <Divider />
                             <Text style={[tw('text-sm font-semibold')]}>
-                                Titulaire du diplôme de Concepteur Développpeur d'Application, je souhaite me spécialiser en développent mes compétences autant bien dans le front que dans le back.
+                                Titulaire du diplôme de Concepteur Développeur d'Application, je souhaite me spécialiser en développent mes compétences autant bien dans le front que dans le back.
                                 Je recherche une alternance à partir de juillet 2026.
                             </Text>
                             <Divider />
