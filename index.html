@@ -10,3 +10,7 @@
 		<script type="module" src="/src/index.tsx"></script>
 	</body>
 </html>
+<script>
+	const redirect = window.location.search.slice(1)
+	if (redirect) history.replaceState(null, '', '/portfolio/' + redirect)
+</script>
