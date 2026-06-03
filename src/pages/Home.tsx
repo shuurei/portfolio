@@ -11,6 +11,7 @@ import { useProjects } from '@/contexts/ProjectsContext'
 import ShortProjectCard from '@/components/ShortProjectCard'
 import ButtonDownloadCV from '@/components/ButtonDownloadCV'
 import { me } from '@/data/me'
+import { useUser } from '@/contexts/UserContext'
 
 function fadeUp(delay = 0) {
     const transition: Transition = { duration: 0.5, delay, ease: 'easeOut' }
@@ -20,6 +21,7 @@ function fadeUp(delay = 0) {
 }
 
 export default function HomePage() {
+    const { user } = useUser();
     const { projects } = useProjects();
 
     const stackByYears = useMemo(() => {
@@ -153,11 +155,11 @@ export default function HomePage() {
                                 </div>
                                 <div className='flex gap-4'>
                                     {[
-                                        { icon: <FaGithub />, href: '#' },
-                                        { icon: <FaLinkedin />, href: '#' },
-                                        { icon: <FaEnvelope />, href: '#' },
+                                        { icon: <FaGithub />, href: `${me.network.find(({ name }) => name === 'GitHub')?.link}/${user?.login}` },
+                                        { icon: <FaLinkedin />, href: me.network.find(({ name }) => name === 'LinkedIn')?.link },
+                                        { icon: <FaEnvelope />, href: `mailto:${me.email}` },
                                     ].map(({ icon, href }, i) => (
-                                        <a key={i} href={href} className='text-zinc-400 hover:text-zinc-700 transition-colors text-xl'>
+                                        <a key={i} href={href} target='_blank' className='text-zinc-400 hover:text-zinc-700 transition-colors text-xl'>
                                             {icon}
                                         </a>
                                     ))}
