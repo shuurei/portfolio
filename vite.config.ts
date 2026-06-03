@@ -15,17 +15,18 @@ export default defineConfig({
 		seoPagesPlugin({
 			skills: {
 				title: 'Compétences',
-				description: 'Mes compétences techniques et humaines en tant que développeur Full-Stack'
+				description: 'Mes compétences techniques et humaines en tant que développeur Full-Stack',
+				themeColor: '#c1a8ff',
 			},
 			journey: {
 				title: 'Parcours',
 				description: 'Mon parcours professionnel et académique',
-				themeColor: '#ff6b6b',
+				themeColor: '#c1a8ff',
 			},
 			projects: {
 				title: 'Projets',
 				description: 'Mes projets personnels et mis en avant',
-				themeColor: '#6b8cff',
+				themeColor: '#c1a8ff',
 			},
 		})
 	],

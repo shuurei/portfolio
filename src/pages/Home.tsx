@@ -1,7 +1,6 @@
 import { motion } from 'motion/react'
 import type { Transition } from 'motion/react'
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa'
-import { SEO } from '@/components/SEO'
 import { Button } from '@/components/common/Button'
 import Card from '@/components/common/Card'
 import { Link } from 'react-router'
@@ -48,8 +47,6 @@ export default function HomePage() {
 
     return (
         <>
-            <SEO title='Accueil' description='Home page !' />
-
             <main className='w-full max-w-7xl mx-auto md:px-6 px-4 py-6 md:py-10 flex flex-col md:gap-8 gap-6'>
                 {/* Hero Card */}
                 <Card delay={0} className='gap-3 md:gap-6'>
