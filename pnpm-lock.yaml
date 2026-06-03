@@ -20,9 +20,6 @@ importers:
       motion:
         specifier: ^12.40.0
         version: 12.40.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      portfolio:
-        specifier: 'link:'
-        version: 'link:'
       react:
         specifier: ^19.2.6
         version: 19.2.6
