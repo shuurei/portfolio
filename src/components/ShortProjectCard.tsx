@@ -38,7 +38,6 @@ export default function ShortProjectCard({ delay = 0, project }: { delay: number
 
             {/* Sections */}
             <div className='flex flex-col flex-1'>
-                {/* Description */}
                 {project.description && (
                     <div className='sm:px-5 px-2.5 sm:pt-5 pt-2.5 sm:pb-4 pb-2  border-t border-zinc-100'>
                         <p className={`text-sm uppercase tracking-widest mb-1.5 ${accentText}`}>Description</p>
@@ -63,7 +62,7 @@ export default function ShortProjectCard({ delay = 0, project }: { delay: number
                 )}
             </div>
 
-            {/* Boutons */}
+            {/* Buttons */}
             {(project.websiteURL || project.sourceCodeURL) && (
                 <div className='flex shrink-0 border-t border-zinc-100'>
                     {project.websiteURL && (

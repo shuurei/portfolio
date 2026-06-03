@@ -4,13 +4,10 @@ import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import GridCanvas from './components/GridCanvas'
 
-import { ProjectsProvider } from './contexts/ProjectsContext'
-import { UserProvider } from './contexts/UserContext'
-
 export default function App() {
     return (
-        <UserProvider>
-            <ProjectsProvider>
+        <>
+            <>
                 <ScrollRestoration />
                 <Header />
                 <main className='relative flex flex-1'>
@@ -18,7 +15,7 @@ export default function App() {
                     <Outlet />
                 </main>
                 <Footer />
-            </ProjectsProvider>
-        </UserProvider>
+            </>
+        </>
     );
 }

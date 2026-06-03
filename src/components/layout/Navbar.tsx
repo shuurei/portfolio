@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { FaMoon } from 'react-icons/fa'
 import { Link, useLocation } from 'react-router'
 import { motion, AnimatePresence } from 'motion/react'
 
 import { cn } from '@/utils/cn'
+import ButtonDownloadCV from '../ButtonDownloadCV'
 
 const links = [
     { to: '/', label: 'Accueil' },
@@ -113,12 +113,12 @@ export default function Navbar() {
                         </div>
                         <div className='p-6 border-t-2 border-zinc-500'>
                             <div className='flex gap-2 *:border-2 *:cursor-pointer *:active:bg-black *:active:text-white'>
-                                <button className='p-2.5 font-semibold'>
+                                <ButtonDownloadCV className='p-2.5 font-semibold'>
                                     CV
-                                </button>
-                                <button className='p-2.5'>
+                                </ButtonDownloadCV>
+                                {/* <button className='p-2.5'>
                                     <FaMoon />
-                                </button>
+                                </button> */}
                             </div>
                         </div>
                     </motion.nav>

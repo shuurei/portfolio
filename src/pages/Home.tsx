@@ -9,6 +9,8 @@ import { useMemo } from 'react'
 import { skills, softSkills } from '@/data/skills'
 import { useProjects } from '@/contexts/ProjectsContext'
 import ShortProjectCard from '@/components/ShortProjectCard'
+import ButtonDownloadCV from '@/components/ButtonDownloadCV'
+import { me } from '@/data/me'
 
 function fadeUp(delay = 0) {
     const transition: Transition = { duration: 0.5, delay, ease: 'easeOut' }
@@ -139,13 +141,15 @@ export default function HomePage() {
                                 transition={fadeUp(0.5).transition}
                                 className='flex items-center justify-between flex-wrap gap-4'
                             >
-                                <div className='flex gap-3 *:px-2.5 *:py-1.75'>
-                                    <Button className='sm:px-5 sm:py-2.5 font-semibold'>
+                                <div className='flex gap-3'>
+                                    <ButtonDownloadCV className='px-2.5 py-1.75 sm:px-5 sm:py-2.5 font-semibold'>
                                         Voir mon CV
-                                    </Button>
-                                    <Button className='sm:px-5 sm:py-2.5'>
-                                        Me contacter
-                                    </Button>
+                                    </ButtonDownloadCV>
+                                    <a href={`mailto:${me.email}`} target='_blank'>
+                                        <Button className='px-2.5 py-1.75 sm:px-5 sm:py-2.5 font-semibold'>
+                                            Me contacter
+                                        </Button>
+                                    </a>
                                 </div>
                                 <div className='flex gap-4'>
                                     {[

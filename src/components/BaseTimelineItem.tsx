@@ -66,7 +66,7 @@ export default function BaseTimelineItem({
                 </div>
             </div>
 
-            {/* Desktop : timeline avec point + ligne */}
+            {/* Desktop */}
             <div className='hidden md:flex gap-6'>
                 <div className='flex flex-col items-center'>
                     <div className='relative flex items-center justify-center w-9 h-9 shrink-0'>

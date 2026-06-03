@@ -1,8 +1,7 @@
 import { motion } from 'motion/react'
-import { FaMoon } from 'react-icons/fa'
 
 import Navbar from './Navbar'
-import { Button } from '@/components/common/Button'
+import ButtonDownloadCV from '../ButtonDownloadCV'
 
 function Logo() {
     return (
@@ -35,12 +34,12 @@ export default function Header() {
                     className='border-zinc-500 max-md:hidden'
                 >
                     <div className='flex gap-2'>
-                        <Button className='p-2.5 font-semibold'>
+                        <ButtonDownloadCV className='p-2.5 font-semibold'>
                             CV
-                        </Button>
-                        <Button className='p-2.5'>
+                        </ButtonDownloadCV>
+                        {/* <Button className='p-2.5'>
                             <FaMoon />
-                        </Button>
+                        </Button> */}
                     </div>
                 </motion.div>
             </div>
