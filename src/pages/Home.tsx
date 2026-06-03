@@ -46,7 +46,7 @@ export default function HomePage() {
 
     return (
         <>
-            <SEO description='Home page !' />
+            <SEO title='Accueil' description='Home page !' />
 
             <main className='w-full max-w-7xl mx-auto md:px-6 px-4 py-6 md:py-10 flex flex-col md:gap-8 gap-6'>
                 {/* Hero Card */}
