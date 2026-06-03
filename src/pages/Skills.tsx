@@ -92,7 +92,7 @@ export default function SkillsPage() {
                             <span className='text-sm text-zinc-400'>Ce qui me définit au-delà du code :)</span>
                         </div>
                     </div>
-                    <div className='px-8 pt-6 flex flex-wrap gap-2'>
+                    <div className='pt-6 flex flex-wrap gap-2'>
                         {softSkills.map((skill, i) => (
                             <motion.span
                                 key={skill}
