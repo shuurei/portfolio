@@ -5,7 +5,7 @@
 	"license": "CC-BY-NC-ND-4.0",
 	"scripts": {
 		"dev": "vite",
-		"build": "tsc -b && vite build",
+		"build": "tsc -b && vite build && node scripts/generate-seo-pages.js",
 		"lint": "eslint .",
 		"preview": "vite preview"
 	},
@@ -27,7 +27,7 @@
 		"@eslint/js": "^10.0.1",
 		"@rolldown/plugin-babel": "^0.2.3",
 		"@types/babel__core": "^7.20.5",
-		"@types/node": "^24.12.3",
+		"@types/node": "^24.12.4",
 		"@types/react": "^19.2.14",
 		"@types/react-dom": "^19.2.3",
 		"@types/react-helmet": "^6.1.11",
