@@ -27,8 +27,10 @@ import {
     SiVuedotjs,
 } from 'react-icons/si'
 
+type SkillType = 'language' | 'framework' | 'tool' | 'os' | 'other';
+
 interface Skill {
-    type: string;
+    type: SkillType;
     name: string;
     icon: IconType;
     years?: number;
@@ -62,19 +64,19 @@ export const skills: Skill[] = [
         icon: SiJson
     },
     {
-        type: 'library',
+        type: 'framework',
         name: 'React',
         icon: SiReact,
         years: 3
     },
     {
-        type: 'library',
+        type: 'framework',
         name: 'React-Native',
         icon: SiReact,
         years: 2
     },
     {
-        type: 'library',
+        type: 'framework',
         name: 'VueJs',
         icon: SiVuedotjs,
         years: 2
@@ -125,27 +127,27 @@ export const skills: Skill[] = [
         icon: SiMysql
     },
     {
-        type: 'library',
+        type: 'framework',
         name: 'Sequelize',
         icon: SiSequelize
     },
     {
-        type: 'library',
+        type: 'framework',
         name: 'Prisma',
         icon: SiPrisma
     },
     {
-        type: 'tools',
+        type: 'tool',
         name: 'Figma',
         icon: SiFigma
     },
     {
-        type: 'tools',
+        type: 'tool',
         name: 'Git',
         icon: SiGit
     },
     {
-        type: 'tools',
+        type: 'tool',
         name: 'DBeaver',
         icon: SiDbeaver
     },
