@@ -37,11 +37,18 @@ export const experiences : Experience[] = [
 
 export const diplomas : Diplomas[] = [
     {
+        title: "Développeur Full-Stack",
+description: "Formation avancée en ingénierie logicielle et développement full-stack, permettant d'approfondir les compétences en architecture applicative, conception de systèmes distribués, cloud, DevOps et gestion de projets. Réalisation de projets complexes en équipe autour de technologies modernes, avec une forte approche pratique sur le développement d'applications web, mobiles et backend, l'optimisation des performances, la sécurité et la qualité logicielle.",        degrees: 'Bac +5',
+        school: 'Sup de Vinci',
+        startAt: '12/10/2026',
+        endAt: '11/15/2028',
+    },
+    {
         title: "Concepteur Développeur D'application",
         description: "Formation orientée développement full-stack et conception d'applications, avec une approche centrée sur l'architecture logicielle, les bases de données, les API et les interfaces web. Réalisation de projets concrets en équipe et en autonomie autour de technologies comme JavaScript, TypeScript, React, Node.js et SQL",
         degrees: 'Bac +3',
         school: 'ARINFO',
         startAt: '09/25/2023',
-        endAt: '11/15/2024',
+        endAt: '20/10/2024',
     }
 ] as const;

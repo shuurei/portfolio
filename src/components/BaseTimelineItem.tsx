@@ -6,6 +6,11 @@ function formatDate(dateStr: string) {
     return new Intl.DateTimeFormat('fr-FR', { month: 'short', year: 'numeric' }).format(new Date(Number(year), Number(month) - 1));
 }
 
+function isFuture(dateStr: string) {
+    const [month, , year] = dateStr.split('/');
+    return new Date(Number(year), Number(month) - 1) > new Date();
+}
+
 export interface BaseTimelineItemProps {
     icon: ReactNode
     accentDot: string
@@ -33,6 +38,14 @@ export default function BaseTimelineItem({
     isLast,
     delay = 0,
 }: BaseTimelineItemProps) {
+    const upcoming = isFuture(startAt)
+
+    const dotClass = upcoming ? 'bg-orange-400' : accentDot
+    const badgeClass = upcoming
+        ? 'border-orange-300 text-orange-600 bg-orange-50'
+        : accentBadge
+    const borderClass = upcoming ? 'border-l-orange-400' : accentBadge
+
     return (
         <motion.div
             initial={{ opacity: 0, x: -12 }}
@@ -40,13 +53,18 @@ export default function BaseTimelineItem({
             transition={{ duration: 0.4, delay, ease: 'easeOut' }}
         >
             {/* Mobile */}
-            <div className={`md:hidden bg-white border shadow-sm shadow-zinc-200/80 flex overflow-hidden mb-4 border-l-6 ${accentBadge}`}>
+            <div className={`md:hidden bg-white border shadow-sm shadow-zinc-200/80 flex overflow-hidden mb-4 border-l-6 ${borderClass}`}>
                 <div className='flex-1 flex flex-col gap-2 px-4 py-4'>
                     <div className='flex items-center justify-between gap-2 flex-wrap'>
                         <div className='flex items-center gap-2 flex-wrap'>
-                            <span className={`text-xs font-semibold px-2 py-0.5 border ${accentBadge}`}>
+                            <span className={`text-xs font-semibold px-2 py-0.5 border ${badgeClass}`}>
                                 {tag}
                             </span>
+                            {upcoming && (
+                                <span className='text-xs font-semibold text-orange-400 uppercase tracking-wider'>
+                                    À venir
+                                </span>
+                            )}
                             {subtitle && (
                                 <span className='text-xs text-zinc-400'>{subtitle}</span>
                             )}
@@ -70,19 +88,26 @@ export default function BaseTimelineItem({
             <div className='hidden md:flex gap-6'>
                 <div className='flex flex-col items-center'>
                     <div className='relative flex items-center justify-center w-9 h-9 shrink-0'>
-                        <div className={`relative w-9 h-9 flex items-center justify-center ${accentDot} text-white text-sm z-10`}>
+                        <div className={`relative w-9 h-9 flex items-center justify-center ${dotClass} text-white text-sm z-10`}>
                             {icon}
                         </div>
                     </div>
-                    {!isLast && <div className='w-px flex-1 bg-zinc-200 my-2' />}
+                    {!isLast && (
+                        <div className={`w-px flex-1 my-2 border ${upcoming ? 'border-dashed border-orange-300 animate-pulse' : 'border-zinc-200'}`} />
+                    )}
                 </div>
 
-                <div className={`flex-1 bg-white border border-zinc-200 shadow-sm shadow-zinc-200/80 flex flex-col gap-2 px-6 py-5 mb-6`}>
+                <div className='flex-1 bg-white border border-zinc-200 shadow-sm shadow-zinc-200/80 flex flex-col gap-2 px-6 py-5 mb-6'>
                     <div className='flex items-start justify-between gap-2'>
                         <div className='flex items-center gap-2 flex-wrap'>
-                            <span className={`text-xs font-semibold px-2 py-0.5 border ${accentBadge}`}>
+                            <span className={`text-xs font-semibold px-2 py-0.5 border ${badgeClass}`}>
                                 {tag}
                             </span>
+                            {upcoming && (
+                                <span className='text-xs font-semibold text-orange-400 uppercase tracking-wider'>
+                                    À venir
+                                </span>
+                            )}
                             <h3 className='font-bold text-zinc-800 text-lg leading-snug'>{title}</h3>
                         </div>
                         <div className='flex items-center gap-1.5 shrink-0'>

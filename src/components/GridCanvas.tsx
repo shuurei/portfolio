@@ -7,6 +7,9 @@ interface GridCanvasProps {
     dotHover?: number
     color?: string
     lineOpacityFactor?: number
+    waveSpeed?: number
+    waveWidth?: number
+    waveCount?: number
     className?: string
 }
 
@@ -20,6 +23,9 @@ export default function GridCanvas({ className, ...options }: GridCanvasProps) {
         dotHover = 0.6,
         color = '0, 0, 0',
         lineOpacityFactor = 0.4,
+        waveSpeed = 0.8,
+        waveWidth = 120,
+        waveCount = 3,
     } = options
 
     useEffect(() => {
@@ -32,6 +38,20 @@ export default function GridCanvas({ className, ...options }: GridCanvasProps) {
         let mouseX = -9999
         let mouseY = -9999
         let animFrame: number
+        let isMobile = window.matchMedia('(pointer: coarse)').matches
+
+        const mobileQuery = window.matchMedia('(pointer: coarse)')
+        const onPointerChange = (e: MediaQueryListEvent) => { isMobile = e.matches }
+        mobileQuery.addEventListener('change', onPointerChange)
+
+        const initWaves = (height: number) => {
+            const spacing = (height + waveWidth * 2) / waveCount
+            return Array.from({ length: waveCount }, (_, i) =>
+                -waveWidth + i * spacing
+            )
+        }
+
+        let waves: number[] = []
 
         const getOffset = () => {
             const rect = canvas.getBoundingClientRect()
@@ -41,6 +61,7 @@ export default function GridCanvas({ className, ...options }: GridCanvasProps) {
         const resize = () => {
             canvas.width = canvas.offsetWidth
             canvas.height = canvas.offsetHeight
+            waves = initWaves(canvas.height)
         }
 
         const draw = () => {
@@ -50,17 +71,38 @@ export default function GridCanvas({ className, ...options }: GridCanvasProps) {
             const rows = Math.ceil(canvas.height / grid) + 1
             const { top, left } = getOffset()
 
-            const localMouseX = mouseX - left
-            const localMouseY = mouseY - top
+            if (isMobile) {
+                const total = canvas.height + waveWidth * 2
+                waves = waves.map(y => {
+                    const next = y + waveSpeed
+                    return next > canvas.height + waveWidth ? next - total : next
+                })
+            }
 
-            // traits
+            const getInfluence = (x: number, y: number): number => {
+                if (isMobile) {
+                    let max = 0
+                    for (const waveY of waves) {
+                        const dist = Math.abs(y - waveY)
+                        const inf = Math.max(0, 1 - dist / waveWidth)
+                        if (inf > max) max = inf
+                    }
+
+                    return max
+                } else {
+                    const localMouseX = mouseX - left
+                    const localMouseY = mouseY - top
+                    const dist = Math.hypot(localMouseX - x, localMouseY - y)
+                    return Math.max(0, 1 - dist / radius)
+                }
+            }
+
+            // Lines
             for (let i = 0; i < cols; i++) {
                 for (let j = 0; j < rows; j++) {
                     const x = i * grid
                     const y = j * grid
-
-                    const dist = Math.hypot(localMouseX - x, localMouseY - y)
-                    const influence = Math.max(0, 1 - dist / radius)
+                    const influence = getInfluence(x, y)
                     const opacity = dotBase + influence * (dotHover - dotBase)
 
                     if (i < cols - 1) {
@@ -83,16 +125,14 @@ export default function GridCanvas({ className, ...options }: GridCanvasProps) {
                 }
             }
 
-            // points
+            // Points
             for (let i = 0; i < cols; i++) {
                 for (let j = 0; j < rows; j++) {
                     const x = i * grid
                     const y = j * grid
-
-                    const dist = Math.hypot(localMouseX - x, localMouseY - y)
-                    const influence = Math.max(0, 1 - dist / radius)
+                    const influence = getInfluence(x, y)
                     const opacity = dotBase + influence * (dotHover - dotBase)
-                    const dotRadius = 1 + influence * 1.75  // 1px → 2.5px progressivement
+                    const dotRadius = 1 + influence * 1.75
 
                     ctx.beginPath()
                     ctx.arc(x, y, dotRadius, 0, Math.PI * 2)
@@ -120,8 +160,9 @@ export default function GridCanvas({ className, ...options }: GridCanvasProps) {
             cancelAnimationFrame(animFrame)
             resizeObserver.disconnect()
             window.removeEventListener('mousemove', onMouseMove)
+            mobileQuery.removeEventListener('change', onPointerChange)
         }
-    }, [grid, radius, dotBase, dotHover, color, lineOpacityFactor])
+    }, [grid, radius, dotBase, dotHover, color, lineOpacityFactor, waveSpeed, waveWidth, waveCount])
 
     return (
         <canvas
@@ -129,5 +170,5 @@ export default function GridCanvas({ className, ...options }: GridCanvasProps) {
             className={`pointer-events-none ${className}`}
             style={{ width: '100%', height: '100%' }}
         />
-    );
+    )
 }
