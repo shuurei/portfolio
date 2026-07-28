@@ -16,7 +16,7 @@ const getContactItems = ({
     github?: Network;
     linkedIn?: Network;
 }) => {
-    const items: unknown[] = [
+    const items : unknown[] = [
         {
             icon: MdEmail,
             value: me.email,
@@ -106,18 +106,6 @@ const projects = [
 
 const workExperiences = [
     {
-        type: 'CDD',
-        title: 'Préparateur de commande Drive Super-U',
-        location: "VERTOU",
-        startAt: '2026',
-        endAt: '2 mois',
-        points: [
-            "Préparation des commandes clients à l'aide d’un PDA dans le respect des délais",
-            'Sélection, contrôle et conditionnement des produits avant remise au client',
-            'Gestion du retrait des commandes et contact avec les clients au point Drive'
-        ]
-    },
-    {
         type: 'Alternance',
         title: 'Développeur Full-Stack',
         location: "L'École de design Nantes Atlantique",
@@ -145,6 +133,13 @@ const workExperiences = [
 
 const educations = [
     {
+        title: 'Mastère Développement Full-Stack',
+        degree: 'Bac +5',
+        location: 'Sup De Vinci, Nantes',
+        startAt: "À partir d'Octobre 2026",
+        endAt: '2028'
+    },
+    {
         title: "Concepteur Développeur d'Application",
         degree: 'Bac +3',
         location: 'ARINFO, Nantes',
@@ -154,22 +149,24 @@ const educations = [
 ];
 
 const skills = [
-    "Préparation de commandes",
-    "Utilisation d'un PDA",
-    "Collecte des produits en rayon",
-    "Respect de la chaîne du froid",
-    "Accueil et remise des commandes",
-    "Relation client",
-    "Respect des règles d'hygiène et de sécurité"
+    'JavaScript',
+    'TypeScript',
+    'React',
+    'React-Native',
+    'VueJs',
+    'Tailwind',
+    'Linux',
+    'JAVA',
+    'Python',
+    'Docker',
+    'CI/CD',
+    'Git / Github',
 ];
 
 const softSkills = [
-    'Rigueur',
-    'Organisation',
-    "Esprit d'équipe",
-    'Réactivité',
-    'Autonomie',
-    'Adaptabilité',
+    'Autonome',
+    'Rigoureux',
+    'Analytique',
 ];
 
 // Helper
@@ -286,14 +283,16 @@ interface CVProps {
     fullname: string;
     avatarURL?: string;
     phoneNumber?: string | null;
+    github?: Network;
     linkedIn?: Network;
 }
 
-const CV = (props: CVProps) => {
+const StudentCV = (props: CVProps) => {
     const {
         fullname,
         avatarURL,
         phoneNumber,
+        github,
         linkedIn
     } = props;
 
@@ -312,7 +311,7 @@ const CV = (props: CVProps) => {
                         {/* Contact */}
                         <Section title='Coordonnées'>
                             <View style={tw('flex gap-2 text-smb')}>
-                                {getContactItems({ phoneNumber, linkedIn }).map((item, idx) => (
+                                {getContactItems({ phoneNumber, github, linkedIn }).map((item, idx) => (
                                     <View key={idx} style={tw('flex-row items-center gap-2')}>
                                         <IconsPDF icon={item.icon} />
 
@@ -357,19 +356,23 @@ const CV = (props: CVProps) => {
                             <View style={[tw('flex gap-2 text-smb')]}>
                                 <Text>• Gaming</Text>
                                 <Text>• Callisthénie</Text>
-                                <Text>• Informatique</Text>
                                 <Text>• Anime / Manhwa</Text>
                             </View>
                         </Section>
                     </View>
 
                     {/* Main */}
-                    <View style={[tw('flex-1 flex justify-between py-4 px-8'), { paddingTop: 80 }]}>
+                    <View style={[tw('flex-1 flex justify-between py-4 px-8'), { paddingTop: 120 }]}>
                         {/* Bio */}
                         <View>
+                            <Image
+                                style={{ height: 36, alignSelf: 'flex-start', objectFit: 'contain' }}
+                                src='/portfolio/supdevinciLogo.png'
+                            />
                             <Divider />
                             <Text style={[tw('text-sm font-semibold text-center')]}>
-                                Je suis sérieux et motivé, je recherche un emploi pour avoir de l'expérience professionnelle. Je suis aussi organisé et à l'aise dans le travail en équipe, je m'investis pleinement dans les missions qui me sont confiées et j'apprends rapidement.
+                                Titulaire du diplôme de Concepteur Développeur d'Application, je souhaite me spécialiser en développent mes compétences autant bien dans le front que dans le back.
+                                Je recherche une alternance à partir de juillet 2026.
                             </Text>
                             <Divider />
                         </View>
@@ -413,9 +416,9 @@ const CV = (props: CVProps) => {
                     top: -70,
                     right: -20,
                     width: 600,
-                    height: 120,
+                    height: 175,
                     backgroundColor: '#002060',
-                    transform: 'rotate(8deg)',
+                    transform: 'rotate(10deg)',
                 }} />
 
                 <View style={{
@@ -441,9 +444,20 @@ const CV = (props: CVProps) => {
                         }}
                     />
                 )}
+
+                {/* Title */}
+                <View style={tw('flex absolute top-8 right-6 bottom-0 text-white font-bold uppercase')}>
+                    <View style={tw('flex text-6xl mb-1')}>
+                        <Text>Développeur Full-Stack</Text>
+                        <Text style={tw('self-end')}>En alternance</Text>
+                    </View>
+                    <Text style={[tw('text-sm self-end'), { color: '#eed9ff' }]}>
+                        3 semaines entreprise / 1 semaine école
+                    </Text>
+                </View>
             </Page>
         </Document>
     );
 }
 
-export default CV;
+export default StudentCV;

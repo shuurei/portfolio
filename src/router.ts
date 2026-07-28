@@ -4,9 +4,9 @@ import App from './App'
 
 import HomePage from '@/pages/Home'
 import ProjectsPage from '@/pages/Projects'
-import SkillsPage from './pages/Skills'
+import SkillsPage from '@/pages/Skills'
 import JourneyPage from '@/pages/Journey'
-import DebugCVPage from './pages/CV'
+import CustomCVPage from '@/pages/CustomCV'
 
 const router = createBrowserRouter([
     {
@@ -31,9 +31,9 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: '/debug/CV',
-        Component: DebugCVPage
-    }
+        path: '/custom/cv',
+        Component: CustomCVPage
+    },
 ], { basename: '/portfolio' });
 
 export default router;
