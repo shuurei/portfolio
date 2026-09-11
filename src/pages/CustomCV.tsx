@@ -9,12 +9,15 @@ import CV from '@/components/CV'
 import StudentCV from '@/components/StudentCV'
 import { BiDownload } from 'react-icons/bi'
 import { cn } from '@/utils/cn'
+import ExtendedCV from '@/components/ExtendCV'
+import { useProjects } from '@/contexts/ProjectsContext'
 
 export default function CustomCVPage() {
     const { user } = useUser();
     const { type: typeParam } = useParams();
+    const { projects } = useProjects();
 
-    const [type, setType] = useState(typeParam ?? 'student');
+    const [type, setType] = useState(typeParam ?? 'extend');
 
     const [fullname, setFullname] = useState('LQS');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -26,8 +29,9 @@ export default function CustomCVPage() {
 
     const isUpdating = fullname !== appliedData.fullname || phoneNumber !== appliedData.phoneNumber
     const isCivil = type === 'civil';
+    const isExtend = type === 'extend';
 
-    const CurrentCV = isCivil ? CV : StudentCV;
+    const CurrentCV = isCivil ? CV : isExtend ? ExtendedCV : StudentCV;
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -55,6 +59,7 @@ export default function CustomCVPage() {
                         link: user.html_url
                     } as any
                 }
+                projects={projects}
             />
         ).toBlob()
 
@@ -87,13 +92,13 @@ export default function CustomCVPage() {
                                 border p-4 text-left
                                 transition-all
                                 cursor-pointer
-                                ${!isCivil
+                                ${type === 'student'
                                     ? 'border-purple-500 bg-purple-50'
                                     : 'bg-white hover:bg-zinc-50'
                                 }
                             `}
                         >
-                            <div className="font-bold">
+                            <div className='font-bold'>
                                 Étudiant
                             </div>
                         </button>
@@ -104,20 +109,35 @@ export default function CustomCVPage() {
                                 border p-4 text-left
                                 transition-all
                                 cursor-pointer
-                                ${isCivil
+                                ${type === 'civil'
                                     ? 'border-purple-500 bg-purple-50'
                                     : 'bg-white hover:bg-zinc-50'
                                 }
                             `}
                         >
-                            <div className="font-bold">
+                            <div className='font-bold'>
                                 Civil
                             </div>
                         </button>
 
+                        <button
+                            onClick={() => setType('extend')}
+                            className={`
+                                border p-4 text-left
+                                transition-all
+                                cursor-pointer
+                                ${type === 'extend'
+                                    ? 'border-purple-500 bg-purple-50'
+                                    : 'bg-white hover:bg-zinc-50'
+                                }
+                            `}
+                        >
+                            <div className='font-bold'>
+                                Étendu
+                            </div>
+                        </button>
                     </div>
                 </div>
-
 
                 {/* Text Inputs */}
                 <div className="space-y-2">
@@ -202,15 +222,14 @@ export default function CustomCVPage() {
                         fullname={appliedData.fullname}
                         phoneNumber={appliedData.phoneNumber}
                         avatarURL="/portfolio/avatar.jpg"
-                        linkedIn={me.network.find(
-                            (network) => network.name === 'LinkedIn'
-                        )}
+                        linkedIn={me.network.find((network) => network.name === 'LinkedIn')}
                         github={
                             user && {
                                 username: user.login,
                                 link: user.html_url
                             } as any
                         }
+                        projects={projects}
                     />
                 </PDFViewer>
             </main>

@@ -59,7 +59,7 @@ export const githubOverride : Record<number, Partial<Project>> = {
     1104382466: {
         name: "Minim'Ow Bar",
         description: "Site web fictif et open-source pour un bar à chats, développé avec React. Ce projet a été créé pour mettre en valeur mes compétences en développement front-end grâce à une interface moderne et responsive, avec des pages pour le menu, les réservations et les chats vedettes :)",
-        technos: ['React'],
+        technos: ['React', 'React-Router', 'Tailwind'],
         highlights: [
             "Conception d'un site vitrine fictif pour un bar à chats",
             "Création d'une interface moderne et responsive avec React",
@@ -101,11 +101,11 @@ export const githubOverride : Record<number, Partial<Project>> = {
     // Portfolio
     1087964398: {
         description: "Portfolio est un projet web. C'est mon site internet pour vous présenter mes créations et mes compétences ainsi que mes projets personnel :)",
-        technos: ['NextJs', 'React'],
+        technos: ['NextJs', 'React', 'React-Router'],
         highlights: [
             "Conception et développement de mon portfolio personnel",
             "Présentation de mes projets, compétences et expériences",
-            "Création d'une interface responsive et personnalisée avec Next.js"
+            "Création d'une interface responsive, avec un quadrillage dynamique en fond"
         ]
     },
     // Pokephone
@@ -151,4 +151,14 @@ export const githubOverride : Record<number, Partial<Project>> = {
             "Création d'une interface simple et responsive en HTML, CSS et JavaScript"
         ]
     },
+    // Journey
+    1353505895: {
+        description: "Application responsive de suivi des habitudes basée sur un système de fréquence et de notation Traffic Light",
+        technos: ['JavaScript', 'React', 'React-Router', 'Tailwind'],
+        highlights: [
+            "Développement d'une application responsive de suivi et d'organisation des habitudes",
+            "Mise en place d'un système de fréquence permettant de planifier les habitudes selon différents jours ou intervalles",
+            "Conception d'un système de suivi inspiré du principe Traffic Light pour visualiser la réalisation et la progression des habitudes"
+        ]
+    }
 }
