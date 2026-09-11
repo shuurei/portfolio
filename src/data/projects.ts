@@ -153,6 +153,7 @@ export const githubOverride : Record<number, Partial<Project>> = {
     },
     // Journey
     1353505895: {
+        name: 'Journey',
         description: "Application responsive de suivi des habitudes basée sur un système de fréquence et de notation Traffic Light",
         technos: ['JavaScript', 'React', 'React-Router', 'Tailwind'],
         highlights: [
