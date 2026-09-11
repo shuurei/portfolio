@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link rel='icon' type='image/png' href="./favicon.png">
+
+		<meta name='description' content="Étudiant développeur Full-Stack en recherche d'alternance - projets perso, nouvelles technos et code concret" />
+		<meta property='og:title' content="Portfolio" />
+		<meta property='og:description' content="Étudiant développeur Full-Stack en recherche d'alternance - projets perso, nouvelles technos et code concret" />
+		<meta property='og:type' content='website' />
+		<meta name='twitter:card' content='summary_large_image' />
+		<meta name='twitter:title' content="Portfolio" />
+		<meta name='twitter:description' content="Étudiant développeur Full-Stack en recherche d'alternance - projets perso, nouvelles technos et code concret" />
+
+		<title>Portfolio</title>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/src/index.tsx"></script>
+	</body>
+</html>
+<script>
+	const redirect = window.location.search.slice(1)
+	if (redirect) history.replaceState(null, '', '/portfolio/' + redirect)
+</script>

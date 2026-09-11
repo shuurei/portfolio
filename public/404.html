@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Portfolio</title>
+
+		<script>
+			const path = window.location.pathname
+				.replace('/portfolio', '')
+				.replace(/^\//, '')
+			window.location.replace('/portfolio/?' + path)
+		</script>
+	</head>
+</html>
