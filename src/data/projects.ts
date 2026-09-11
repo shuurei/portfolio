@@ -153,12 +153,12 @@ export const githubOverride : Record<number, Partial<Project>> = {
     },
     // Journey
     1353505895: {
-        description: "Keep Weather est un projet web open-source qui vous permet de faire des recherches sur la météo d'une ville",
+        description: "Application responsive de suivi des habitudes basée sur un système de fréquence et de notation Traffic Light",
         technos: ['JavaScript', 'React', 'React-Router', 'Tailwind'],
         highlights: [
-            "Développement d'une application de suivi d'habitude",
-            "Conception d'une navigation avec React-Router",
-            "Création d'une interface simple et responsive"
+            "Développement d'une application responsive de suivi et d'organisation des habitudes",
+            "Mise en place d'un système de fréquence permettant de planifier les habitudes selon différents jours ou intervalles",
+            "Conception d'un système de suivi inspiré du principe Traffic Light pour visualiser la réalisation et la progression des habitudes"
         ]
     }
 }
