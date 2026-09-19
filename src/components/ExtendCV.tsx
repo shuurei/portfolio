@@ -261,7 +261,7 @@ const ExtendCV = (props: CVProps) => {
     const projectsPerPage = 5;
 
     const sortedProjects = projects
-        .filter((project) => project.highlights?.some((highlight) => highlight.trim().length > 0))
+        .filter((project) => project.highlights?.some((highlight) => highlight.trim().length > 0) && project.language?.toLowerCase() !== 'json' && !project.name.includes('kaizen'))
         .sort((a, b) => {
             const getScore = (project: Project) => {
                 const descriptionLength = project.highlights?.reduce((total, highlight) => total + highlight.trim().length, 0) ?? 0;
